@@ -25,19 +25,31 @@ Last Updated: YYYY-MM-DD
 
 ### FR-001: [Requirement Name]
 
+- **Status:** 🔲 Not Started | 🟡 In Progress | ✅ Complete
 - **Description:**
 - **Priority:** Must Have | Should Have | Nice to Have
-- **Acceptance Criteria:**
-  - [ ]
-  - [ ]
+- **Stories:** STORY-X, STORY-Y
+- **PRs:** #X, #Y
+
+**Acceptance Criteria:**
+
+- [ ] Given [context], when [action], then [result]
+- [ ]
+
+---
 
 ### FR-002: [Requirement Name]
 
+- **Status:** 🔲 Not Started | 🟡 In Progress | ✅ Complete
 - **Description:**
 - **Priority:** Must Have | Should Have | Nice to Have
-- **Acceptance Criteria:**
-  - [ ]
-  - [ ]
+- **Stories:** —
+- **PRs:** —
+
+**Acceptance Criteria:**
+
+- [ ] Given [context], when [action], then [result]
+- [ ]
 
 ---
 
@@ -90,6 +102,17 @@ Last Updated: YYYY-MM-DD
 <!-- Things still to be decided -->
 
 - [ ]
+
+---
+
+## Requirements Summary
+
+<!-- Quick view of all requirements and their status -->
+
+| ID | Name | Priority | Status | Stories | PRs |
+|----|------|----------|--------|---------|-----|
+| FR-001 | [Name] | Must Have | 🔲 | — | — |
+| FR-002 | [Name] | Should Have | 🔲 | — | — |
 
 ---
 

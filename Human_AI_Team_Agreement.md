@@ -485,30 +485,62 @@ And the form is not submitted
 - Ask for ordering: *"What order should these stories be implemented?"*
 - Validate completeness: *"Do these stories cover all the requirements?"*
 
-### Tracking (Lightweight)
+### Tracking (Markdown-Based)
 
-For solo work, a simple markdown file works:
+Use `BACKLOG.md` in project root. See template at `docs/templates/backlog.md`.
 
-```markdown
-# Backlog
+**Traceability Chain:**
 
-## In Progress
-- [ ] [STORY] Feature X (3 pts) - PR #12
-
-## Ready
-- [ ] [STORY] Feature Y (5 pts)
-- [ ] [BUG] Fix Z (2 pts)
-
-## Done
-- [x] [STORY] Feature A (3 pts) - PR #10
+```
+Requirement (FR-001) → Story (STORY-3) → Branch → PR → Done ✓
 ```
 
-Or use GitHub Issues/Projects if you prefer a UI.
+**Files:**
+
+| File | Purpose |
+|------|---------|
+| `docs/requirements.md` | WHAT we're building (with completion status) |
+| `BACKLOG.md` | Stories/tasks to do (ordered work queue) |
+| `CHANGELOG.md` | What's been released |
+
+**BACKLOG.md Structure:**
+
+```markdown
+## In Progress
+- [ ] **STORY-5** Add user login (3 pts)
+  - Requirement: FR-001
+  - Branch: `feature/STORY-5-user-login`
+  - PR: #12
+
+## Ready
+- [ ] **STORY-6** Add logout button (2 pts) - FR-001
+
+## Done (Current Release)
+- [x] **STORY-3** Project setup (2 pts) - FR-001 → PR #8 ✓
+```
+
+**Requirements Summary (in requirements.md):**
+
+```markdown
+| ID | Name | Priority | Status | Stories | PRs |
+|----|------|----------|--------|---------|-----|
+| FR-001 | User Auth | Must Have | 🟡 | STORY-3, STORY-5 | #8, #12 |
+| FR-002 | Data Export | Should Have | 🔲 | — | — |
+```
+
+**Branch Naming:**
+
+| Type | Format | Example |
+|------|--------|---------|
+| Feature | `feature/STORY-N-description` | `feature/STORY-5-user-login` |
+| Bug fix | `bugfix/BUG-N-description` | `bugfix/BUG-3-null-crash` |
 
 **Claude Tips:**
 
-- Ask Claude to update the backlog: *"Mark story X as done and move Y to in progress"*
-- Request status: *"What's our current backlog status?"*
+- Start work: *"Read BACKLOG.md and pick up the next ready story"*
+- Update status: *"Mark STORY-5 as done with PR #12 and update requirements.md"*
+- Check status: *"What's currently in progress? What requirement is it for?"*
+- Add story: *"Add a new story for [feature] linked to FR-002"*
 
 ---
 
