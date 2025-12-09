@@ -1121,69 +1121,840 @@ def test_bulk_import_performance():
 
 ## 8. Code Review & PR Process
 
+> **First Principle:** Code review catches bugs, improves code quality, and spreads knowledge. Even solo developers benefit from AI-assisted review.
+
+### PR Creation
+
+**Before Creating a PR:**
+
+- [ ] All tests pass locally
+- [ ] Code is formatted and linted
+- [ ] Self-review completed (read your own diff)
+- [ ] Commit history is clean
+- [ ] Branch is up to date with main
+
+**PR Template:**
+
+```markdown
+## Summary
+[Brief description of what this PR does]
+
+## Changes
+- [List of changes]
+
+## Testing
+- [ ] Unit tests added/updated
+- [ ] Integration tests added/updated
+- [ ] Manual testing completed
+
+## UAT Instructions
+[Steps for Human to verify]
+
+## Screenshots (if UI changes)
+[Before/after if applicable]
+
+## Related
+- Closes #[issue number]
+- Related to #[PR or issue]
+```
+
+**Claude Tips:**
+
+- Ask Claude: *"Create a PR with a summary of changes"*
+- Request PR description: *"Write a PR description for these changes"*
+
 ### PR Review Flow
 
-1. Developer creates PR
-2. **GitHub Copilot agent** reviews all PRs
-3. **Claude Code** reviews Copilot's comments and either:
-   - Fixes the issue, OR
-   - Ignores with inline comment explaining the decision
+**Two-Stage AI Review:**
+
+```
+1. Claude Code creates PR
+        ↓
+2. GitHub Copilot reviews (automated)
+        ↓
+3. Claude Code addresses Copilot comments
+        ↓
+4. Human reviews and runs UAT
+        ↓
+5. Human approves and merges
+```
+
+**Stage 1: Copilot Review**
+
+- Enable GitHub Copilot code review on the repo
+- Copilot automatically reviews all PRs
+- Comments appear as review suggestions
+
+**Stage 2: Claude Addresses Comments**
+
+For each Copilot comment, Claude should:
+
+1. **Fix** - If the suggestion is valid, implement it
+2. **Ignore with explanation** - If not applicable, comment why
+
+```markdown
+<!-- Example response to Copilot comment -->
+@copilot Thanks for the suggestion. Not applicable here because [reason].
+Leaving as-is.
+```
+
+**Stage 3: Human Review**
+
+Human reviews:
+- Overall approach (does this solve the right problem?)
+- Edge cases Copilot might miss
+- UAT verification
+- Final approval
+
+**Claude Tips:**
+
+- Tell Claude: *"Review the Copilot comments on this PR and address each one"*
+- Ask for summary: *"Summarize what Copilot found and what you fixed"*
 
 ### PR Approval
 
-- Configure GitHub to allow appropriate PR approvals
-- Limit prompts to PR approval after story is finished
+**Who Can Approve:**
+
+- Human (required for all PRs)
+- Configure GitHub branch protection to require approval
+
+**Approval Checklist:**
+
+- [ ] Code changes look correct
+- [ ] Tests are adequate
+- [ ] UAT passes
+- [ ] No security concerns
+- [ ] Documentation updated (if needed)
+
+**Claude Tips:**
+
+- Ask Claude: *"Is this PR ready for my review?"*
+- Request checklist: *"Run through the approval checklist for this PR"*
 
 ### Merge Strategy
 
-- TODO: Squash? Rebase? Merge commits?
+**Recommended: Squash and Merge**
+
+- Keeps main history clean
+- One commit per feature/fix
+- Easier to revert if needed
+
+**When to Use Each:**
+
+| Strategy | Use When |
+|----------|----------|
+| Squash | Default for features and fixes |
+| Rebase | Clean, logical commit history matters |
+| Merge commit | Preserving full branch history matters |
+
+**Process:**
+
+1. Squash and merge via GitHub UI
+2. Delete the feature branch
+3. Pull latest main locally
+
+**Claude Tips:**
+
+- Ask Claude: *"Squash and merge this PR"*
+- Or: *"What merge strategy should we use for this PR?"*
 
 ### Rollback Plan
 
-- TODO: What happens if a merged PR breaks something?
+**If a Merged PR Breaks Something:**
+
+**Immediate (< 5 min since merge):**
+
+```bash
+# Revert the merge commit
+git revert -m 1 <merge-commit-sha>
+git push
+```
+
+**Recent (same day):**
+
+1. Create a revert PR
+2. Fast-track review (Human approves quickly)
+3. Merge revert
+4. Investigate root cause
+5. Fix and re-submit
+
+**Older:**
+
+1. Create a bug ticket
+2. Fix forward (don't revert)
+3. Follow normal PR process
+
+**Prevention:**
+
+- Run full test suite before merge
+- Use feature flags for risky changes
+- Deploy to staging first (if applicable)
+
+**Claude Tips:**
+
+- Ask Claude: *"This PR broke something. Help me revert it."*
+- Request investigation: *"What went wrong with this change?"*
 
 ### Notifications
 
-- Sound a beep notification when ready for PR review
-- Explore detection of merged commits for workflow automation
+**PR Ready for Review:**
+
+Claude should signal when PR is ready:
+
+```
+🔔 PR #123 is ready for your review.
+
+Summary: [brief description]
+UAT: [link to instructions]
+Tests: ✅ All passing
+
+Please review when ready.
+```
+
+**Optional: System Notification**
+
+```bash
+# macOS - play sound when ready
+osascript -e 'display notification "PR ready for review" with title "Claude Code"'
+# Or use terminal bell
+echo -e '\a'
+```
+
+**Claude Tips:**
+
+- Tell Claude: *"Notify me when the PR is ready"*
+- Configure in settings if supported
 
 ---
 
 ## 9. Release & Deployment
 
+> **First Principle:** A release should be boring. If you're nervous about releasing, your process isn't automated enough.
+
 ### Versioning
 
-- TODO: Versioning strategy (semver?)
+**Methodology: Semantic Versioning (SemVer)**
+
+Format: `MAJOR.MINOR.PATCH` (e.g., `1.2.3`)
+
+| Component | When to Increment |
+|-----------|-------------------|
+| MAJOR | Breaking changes (incompatible API changes) |
+| MINOR | New features (backwards compatible) |
+| PATCH | Bug fixes (backwards compatible) |
+
+**Pre-release Versions:**
+
+- `1.0.0-alpha.1` - Early development, unstable
+- `1.0.0-beta.1` - Feature complete, testing
+- `1.0.0-rc.1` - Release candidate, final testing
+
+**Rules:**
+
+- Start at `0.1.0` during initial development
+- `0.x.x` means API is not stable
+- First stable release is `1.0.0`
+- Never reuse version numbers
+
+**Where to Update Version:**
+
+- `pyproject.toml` or `setup.py` (Python)
+- `package.json` (Node.js)
+- Source code `__version__` if applicable
+- Git tag
+
+**Claude Tips:**
+
+- Ask Claude: *"What version should this release be based on the changes?"*
+- Request bump: *"Bump the version to 1.2.0 and update all version references"*
 
 ### Changelog
 
-- TODO: How to maintain changelog?
+**File:** `CHANGELOG.md` in project root
 
-### Deployment Process
+**Format (Keep a Changelog):**
 
-- TODO: Deployment steps and environments
+```markdown
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/),
+and this project adheres to [Semantic Versioning](https://semver.org/).
+
+## [Unreleased]
+
+### Added
+- New feature X
+
+### Changed
+- Updated behavior of Y
+
+### Fixed
+- Bug in Z
+
+## [1.0.0] - 2025-01-15
+
+### Added
+- Initial release
+- Feature A
+- Feature B
+```
+
+**Categories:**
+
+- `Added` - New features
+- `Changed` - Changes to existing functionality
+- `Deprecated` - Features to be removed
+- `Removed` - Removed features
+- `Fixed` - Bug fixes
+- `Security` - Security fixes
+
+**Process:**
+
+1. Update `[Unreleased]` section as you merge PRs
+2. On release, move `[Unreleased]` content to new version section
+3. Add release date
+4. Create git tag
+
+**Claude Tips:**
+
+- Ask Claude: *"Update the changelog with this PR's changes"*
+- Request release: *"Move unreleased changes to version 1.2.0"*
+- Generate from commits: *"Generate changelog entries from recent commits"*
+
+### Release Process
+
+**Pre-Release Checklist:**
+
+- [ ] All tests pass
+- [ ] Changelog updated
+- [ ] Version bumped
+- [ ] Documentation updated
+- [ ] No uncommitted changes
+
+**Release Steps:**
+
+```bash
+# 1. Ensure clean state
+git status  # Should be clean
+git pull origin main
+
+# 2. Run full test suite
+pytest
+
+# 3. Update version (example for Python)
+# Edit pyproject.toml, __version__, etc.
+
+# 4. Update changelog
+# Move [Unreleased] to [X.Y.Z] - YYYY-MM-DD
+
+# 5. Commit version bump
+git add -A
+git commit -m "chore: release v1.2.0"
+
+# 6. Tag the release
+git tag -a v1.2.0 -m "Release v1.2.0"
+
+# 7. Push
+git push origin main --tags
+```
+
+**Claude Tips:**
+
+- Ask Claude: *"Prepare release 1.2.0"*
+- Request checklist: *"Run through the pre-release checklist"*
+
+### Deployment
+
+**For CLI Tools (PyPI):**
+
+```bash
+# Build
+python -m build
+
+# Test upload (TestPyPI)
+twine upload --repository testpypi dist/*
+
+# Production upload
+twine upload dist/*
+```
+
+**For Applications:**
+
+Document environment-specific deployment:
+
+```markdown
+## Deployment
+
+### Staging
+1. Merge to `staging` branch
+2. CI/CD deploys automatically
+3. Verify at staging.example.com
+
+### Production
+1. Create release tag
+2. CI/CD deploys automatically
+3. Verify at example.com
+4. Monitor for errors
+```
+
+**Environments:**
+
+| Environment | Purpose | Deploy Trigger |
+|-------------|---------|----------------|
+| Local | Development | Manual |
+| Staging | Testing | Push to staging branch |
+| Production | Live users | Release tag |
+
+**Claude Tips:**
+
+- Ask Claude: *"Deploy this release to staging"*
+- Request verification: *"What should I check after deploying?"*
+
+### Rollback
+
+**If Release Has Issues:**
+
+```bash
+# Option 1: Deploy previous version
+git checkout v1.1.0
+# Re-deploy
+
+# Option 2: Revert and release
+git revert <bad-commit>
+# Bump patch version
+# Release v1.2.1
+```
+
+**Post-Mortem:**
+
+After any rollback:
+1. Document what went wrong
+2. Add test to catch it next time
+3. Update process if needed
 
 ---
 
 ## 10. Documentation Updates
 
-- Update user documentation as development progresses
+> **First Principle:** Documentation is a product feature. If users can't figure out how to use it, it doesn't matter how good the code is.
+
+### Documentation Types
+
+| Type | Audience | Location | Update When |
+|------|----------|----------|-------------|
+| README | New users, contributors | `README.md` | Setup changes, major features |
+| API docs | Developers integrating | `docs/api/` | API changes |
+| User guide | End users | `docs/user-guide/` | Feature changes |
+| Architecture | Future maintainers | `docs/architecture.md` | Design changes |
+| Changelog | Everyone | `CHANGELOG.md` | Every release |
+
+### README Structure
+
+**Every project needs a README with:**
+
+```markdown
+# Project Name
+
+Brief description (1-2 sentences)
+
+## Features
+- Key feature 1
+- Key feature 2
+
+## Quick Start
+[Minimal steps to get running]
+
+## Installation
+[Detailed installation instructions]
+
+## Usage
+[Common use cases with examples]
+
+## Configuration
+[Environment variables, config files]
+
+## Development
+[Setup for contributors]
+
+## Testing
+[How to run tests]
+
+## License
+[License type]
+```
+
+**Claude Tips:**
+
+- Ask Claude: *"Update the README with the new feature"*
+- Request review: *"Is the README accurate and complete?"*
+- Generate examples: *"Add usage examples to the README"*
+
+### When to Update Documentation
+
+**Update Immediately (same PR):**
+
+- New features → User guide + README
+- API changes → API docs
+- Config changes → README + config section
+- Breaking changes → Migration guide
+
+**Update on Release:**
+
+- Changelog
+- Version numbers in docs
+- "What's New" section
+
+**Periodic Review:**
+
+- Screenshots (do they match current UI?)
+- Links (are they still valid?)
+- Examples (do they still work?)
+
+### Documentation as Code
+
+**Treat docs like code:**
+
+- Store in repo (version controlled)
+- Review in PRs
+- Test examples (doctest, runnable snippets)
+- Lint for style (markdownlint)
+
+**Docstrings (Python):**
+
+```python
+def calculate_total(items: list[Item], discount: float = 0.0) -> float:
+    """
+    Calculate the total price of items with optional discount.
+
+    Args:
+        items: List of Item objects with price attribute.
+        discount: Discount as decimal (0.1 = 10%). Default 0.
+
+    Returns:
+        Total price after discount.
+
+    Raises:
+        ValueError: If discount is negative or > 1.
+
+    Example:
+        >>> items = [Item(price=100), Item(price=50)]
+        >>> calculate_total(items, discount=0.1)
+        135.0
+    """
+```
+
+**Claude Tips:**
+
+- Ask Claude: *"Add docstrings to this module"*
+- Generate docs: *"Create API documentation from docstrings"*
+- Test examples: *"Verify the docstring examples work"*
+
+### User-Facing Documentation
+
+**Principles:**
+
+- Write for the reader, not yourself
+- Show, don't tell (examples > explanations)
+- Start with common use cases
+- Progressive disclosure (simple → advanced)
+
+**Structure:**
+
+```
+docs/
+├── getting-started.md    # First-time users
+├── user-guide/
+│   ├── basic-usage.md
+│   ├── advanced-usage.md
+│   └── troubleshooting.md
+├── api/
+│   └── reference.md
+└── contributing.md       # For contributors
+```
+
+**Claude Tips:**
+
+- Ask Claude: *"Write a getting started guide for new users"*
+- Request tutorial: *"Create a step-by-step tutorial for [feature]"*
+- Simplify: *"Make this documentation easier to understand"*
+
+### Keeping Docs in Sync
+
+**Definition of Done includes:**
+
+- [ ] Documentation updated for user-facing changes
+
+**PR Checklist:**
+
+- [ ] README updated (if applicable)
+- [ ] Docstrings added/updated
+- [ ] User guide updated (if applicable)
+- [ ] Changelog updated
+
+**Claude Tips:**
+
+- Ask Claude: *"What documentation needs to be updated for this PR?"*
+- Request sync: *"Update all documentation to match the current code"*
 
 ---
 
 ## 11. Maintenance & Future Work
 
-- Establish patterns for returning to completed projects
-- Define process for bug fixes and feature additions post-release
+> **First Principle:** Software is never "done." Plan for maintenance from the start, and make it easy to return to a project after time away.
+
+### Returning to a Project
+
+**Context Recovery Checklist:**
+
+When returning to a project after time away:
+
+- [ ] Read `README.md` - Remember what this does
+- [ ] Read `CHANGELOG.md` - See recent changes
+- [ ] Check `docs/requirements.md` - Recall the goals
+- [ ] Run `git log --oneline -20` - See recent commits
+- [ ] Check open issues/PRs - Any pending work?
+- [ ] Run tests - Does everything still work?
+- [ ] Check dependencies - Any security updates?
+
+**Session Startup Prompt:**
+
+```
+I'm returning to this project after some time away.
+Read the README, CHANGELOG, and recent git history.
+Summarize the project status and any pending work.
+```
+
+**Claude Tips:**
+
+- Ask Claude: *"Help me get back up to speed on this project"*
+- Request summary: *"What's the current state of this project?"*
+- Check health: *"Run tests and check for dependency updates"*
+
+### Bug Fix Process
+
+**Triage:**
+
+1. Reproduce the bug
+2. Assess severity (Critical / High / Medium / Low)
+3. Create bug ticket with reproduction steps
+
+**Severity Guide:**
+
+| Severity | Description | Response |
+|----------|-------------|----------|
+| Critical | System down, data loss | Fix immediately |
+| High | Major feature broken | Fix this sprint |
+| Medium | Feature impaired but usable | Schedule fix |
+| Low | Minor issue, workaround exists | Backlog |
+
+**Fix Process:**
+
+1. Create `bugfix/<description>` branch
+2. Write failing test that reproduces the bug
+3. Fix the bug (test should pass)
+4. Verify no regressions
+5. Update changelog
+6. Create PR with root cause analysis
+
+**PR Template for Bug Fixes:**
+
+```markdown
+## Bug Fix
+
+**Issue:** #[number] or description
+
+**Root Cause:**
+[What caused this bug?]
+
+**Fix:**
+[How does this PR fix it?]
+
+**Testing:**
+- [ ] Added regression test
+- [ ] Verified fix manually
+- [ ] Ran full test suite
+
+**Prevention:**
+[How do we prevent similar bugs?]
+```
+
+**Claude Tips:**
+
+- Ask Claude: *"Help me reproduce and fix this bug"*
+- Request analysis: *"What's the root cause of this bug?"*
+- Prevent recurrence: *"How can we prevent this type of bug?"*
+
+### Feature Addition Process
+
+**For Existing Projects:**
+
+1. **Evaluate fit** - Does this belong in this project?
+2. **Check requirements** - Update `docs/requirements.md`
+3. **Design** - Write design doc if non-trivial
+4. **Break into stories** - 3-5 points each
+5. **Implement** - Follow normal development process
+
+**Considerations:**
+
+- Backwards compatibility
+- Migration path for existing users
+- Documentation updates
+- Changelog entry
+
+**Claude Tips:**
+
+- Ask Claude: *"How would we add [feature] to this project?"*
+- Request impact analysis: *"What would this feature change affect?"*
+
+### Dependency Management
+
+**Regular Maintenance:**
+
+```bash
+# Check for outdated dependencies (Python)
+pip list --outdated
+
+# Check for security vulnerabilities
+pip-audit
+
+# Update dependencies
+pip install --upgrade <package>
+```
+
+**Update Strategy:**
+
+| Type | Frequency | Process |
+|------|-----------|---------|
+| Security fixes | Immediately | Patch release |
+| Minor updates | Monthly | Test and update |
+| Major updates | Quarterly | Evaluate breaking changes |
+
+**Claude Tips:**
+
+- Ask Claude: *"Check for dependency updates and security issues"*
+- Request upgrade: *"Update [package] to the latest version"*
+
+### Technical Debt
+
+**Tracking:**
+
+- Create `[CHORE]` tickets for tech debt
+- Tag with `tech-debt` label
+- Include impact and effort estimate
+
+**Prioritization:**
+
+| Priority | Criteria |
+|----------|----------|
+| High | Blocking features or causing bugs |
+| Medium | Slowing development |
+| Low | Code smell, no immediate impact |
+
+**Paying Down Debt:**
+
+- Allocate ~20% of sprint capacity to tech debt
+- Address high-priority items first
+- Refactor incrementally, not all at once
+
+**Claude Tips:**
+
+- Ask Claude: *"What technical debt exists in this codebase?"*
+- Request plan: *"How should we address this tech debt?"*
+
+### Project Health Checks
+
+**Periodic Review (monthly/quarterly):**
+
+- [ ] Tests still passing?
+- [ ] Dependencies up to date?
+- [ ] Security vulnerabilities?
+- [ ] Documentation accurate?
+- [ ] Any stale branches?
+- [ ] Open issues triaged?
+
+**Claude Tips:**
+
+- Ask Claude: *"Run a health check on this project"*
+- Request report: *"What maintenance does this project need?"*
 
 ---
 
 ## 12. Open Questions & Improvements
 
-- [ ] How to ask Claude Code where it is in the current plan?
-- [ ] How to get Claude Code to reply to Copilot PR change comments?
-- [ ] Can we interact via CLI and have it add notes to PRs?
-- [ ] Can we detect when commits are merged?
+> This section tracks questions to investigate and potential improvements to this workflow.
+
+### Open Questions
+
+| Question | Status | Notes |
+|----------|--------|-------|
+| How to ask Claude Code where it is in the current plan? | Open | Try: *"What step are we on?"* |
+| How to get Claude Code to reply to Copilot PR comments? | Open | May need `gh` CLI integration |
+| Can we interact via CLI and have it add notes to PRs? | Open | Explore `gh pr comment` |
+| Can we detect when commits are merged? | Open | Webhook or polling? |
+| Can Claude Code run in the background and notify? | Open | Terminal bell works (`echo -e '\a'`) |
+
+### Potential Improvements
+
+**Workflow Automation:**
+
+- [ ] Create slash commands for common tasks (e.g., `/new-story`, `/release`)
+- [ ] Automate changelog updates from commit messages
+- [ ] Add git hooks for pre-commit checks
+- [ ] Create project health check script
+
+**Templates:**
+
+- [ ] Add more project types (TypeScript API, React app, etc.)
+- [ ] Create issue/PR templates for GitHub
+- [ ] Add CI/CD workflow templates
+
+**Documentation:**
+
+- [ ] Add visual diagrams for workflows
+- [ ] Create quick-reference cheat sheet
+- [ ] Add troubleshooting guide
+
+### Feedback Log
+
+*Record what's working and what isn't as you use this workflow.*
+
+| Date | Feedback | Action Taken |
+|------|----------|--------------|
+| 2025-12-08 | Initial version created | - |
+
+### Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 0.1.0 | 2025-12-08 | Initial draft with all 12 sections |
+
+---
+
+## Quick Reference
+
+### Claude Code Commands
+
+| Action | Command/Prompt |
+|--------|----------------|
+| Enter Plan Mode | `Shift+Tab` or `claude --permission-mode plan` |
+| Start new session | *"Read Human_AI_Team_Agreement.md and help me get started"* |
+| Check progress | *"What step are we on? What's next?"* |
+| Create PR | *"Create a PR with summary of changes"* |
+| Run tests | *"Run tests and fix any failures"* |
+| Prepare release | *"Prepare release X.Y.Z"* |
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `Human_AI_Team_Agreement.md` | This file - how we work together |
+| `discovery/PROCESS.md` | Brainstorming and idea validation |
+| `bootstrap/PROCESS.md` | Project setup |
+| `docs/templates/*.md` | Requirements, design, ADR templates |
+| `CHANGELOG.md` | Release history |
+| `BACKLOG.md` | Current work items |
 
 ---
 
