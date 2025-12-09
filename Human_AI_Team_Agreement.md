@@ -162,54 +162,353 @@ You can configure allowed/denied commands in `.claude/settings.json`:
 
 ## 3. Requirements & Design
 
+> **First Principle:** Requirements are a conversation, not a specification. Write them to communicate intent, not to cover every edge case. Design emerges through iteration.
+
 ### Requirements Documentation
 
-- Store requirements in **markdown format**
-- Include **semver versioning** in the document (keep filename consistent)
-- AI assistant should read requirements doc before starting work
+**Methodology: Living Documents**
+
+- Requirements evolve—treat them as living documents, not contracts
+- Write for clarity, not completeness
+- Focus on *what* and *why*, not *how*
+
+**Format:**
+
+- Store in `docs/requirements.md` (or `docs/requirements/` for larger projects)
+- Use markdown with clear headings
+- Include **semver version** at the top (e.g., `v0.1.0`)
+- Keep filename consistent; update version inside the doc
+
+**Structure Template:**
+
+```markdown
+# Requirements: [Project Name]
+Version: 0.1.0
+
+## Overview
+[1-2 paragraph summary]
+
+## User Stories
+- As a [user], I want [goal] so that [reason]
+
+## Functional Requirements
+### FR-001: [Name]
+- Description: ...
+- Acceptance Criteria: ...
+
+## Non-Functional Requirements
+- Performance: ...
+- Security: ...
+
+## Out of Scope
+- [Explicitly list what this version does NOT include]
+```
+
+**Claude Tips:**
+
+- Tell Claude: *"Read docs/requirements.md before we start any work"*
+- Ask Claude to identify gaps: *"What's unclear or missing from these requirements?"*
+- Have Claude generate user stories: *"Convert these requirements into user stories"*
 
 ### Design Process
 
-- Iterate on the design doc first
-- AI assistant should pull description and context from the design doc
-- Create roadmap after design is finalized
+**Methodology: Design Docs**
+
+A design doc answers: *"How will we build this?"*
+
+**When to Write a Design Doc:**
+
+- New features with multiple components
+- Changes affecting multiple files/modules
+- Decisions with long-term implications
+- Anything you'd want to discuss before coding
+
+**Design Doc Template:**
+
+```markdown
+# Design: [Feature Name]
+Version: 0.1.0
+Status: Draft | Review | Approved
+
+## Context
+[Why are we doing this? Link to requirements.]
+
+## Goals
+- [What must this achieve?]
+
+## Non-Goals
+- [What are we explicitly NOT solving?]
+
+## Proposed Solution
+[Describe the approach]
+
+## Alternatives Considered
+[What else did we consider? Why not?]
+
+## Technical Details
+[Architecture, data flow, APIs, etc.]
+
+## Open Questions
+- [Things still to decide]
+```
+
+**Process:**
+
+1. Write draft design doc
+2. Review with Claude (or team)
+3. Iterate until approved
+4. Create roadmap/stories from approved design
+
+**Claude Tips:**
+
+- Use **Plan Mode** when iterating on design: *"Let's design feature X. Don't write any code yet."*
+- Ask for alternatives: *"What are other ways to approach this?"*
+- Request critique: *"What are the weaknesses of this design?"*
+- Have Claude fill in technical details: *"Expand the technical details section"*
 
 ### Tech Stack Decisions
 
-- TODO: Where to document architectural choices?
+**Document in:** `docs/architecture.md` or `docs/adr/` (Architecture Decision Records)
+
+**ADR Template (lightweight):**
+
+```markdown
+# ADR-001: [Decision Title]
+Date: YYYY-MM-DD
+Status: Proposed | Accepted | Deprecated
+
+## Context
+[What situation prompted this decision?]
+
+## Decision
+[What did we decide?]
+
+## Consequences
+[What are the implications—good and bad?]
+```
+
+**Claude Tips:**
+
+- Ask Claude to help evaluate options: *"Compare Redux vs Context for state management in this project"*
+- Document the decision even if it seems obvious—future you will thank you
 
 ### Definition of Done (Global)
 
-- TODO: Define criteria that apply to all work (e.g., tests pass, docs updated, no lint errors)
+**All work must meet these criteria before being considered complete:**
+
+- [ ] Code compiles/runs without errors
+- [ ] All tests pass (unit + integration)
+- [ ] No linter errors or warnings
+- [ ] Code reviewed (by Copilot + Claude or Human)
+- [ ] Documentation updated (if user-facing changes)
+- [ ] Commit message follows convention
+- [ ] PR includes UAT instructions
+
+**Claude Tips:**
+
+- Before marking work complete, ask: *"Does this meet our Definition of Done?"*
+- Have Claude run the checklist: *"Review this PR against our DoD"*
 
 ### Project Completion Criteria
 
-- TODO: Define MVP criteria
-- TODO: When is v1.0 ready?
+**MVP Criteria (from Discovery phase):**
+
+- Defined in `discovery/mvp_scope.md`
+- All must-haves implemented and tested
+- Success criteria measurable and met
+
+**v1.0 Readiness Checklist:**
+
+- [ ] All MVP features complete
+- [ ] No critical or high-severity bugs
+- [ ] Documentation complete (README, user docs)
+- [ ] Setup instructions tested on clean environment
+- [ ] Release notes written
+- [ ] Version tagged in git
+
+**Claude Tips:**
+
+- Ask Claude: *"Are we ready for v1.0? What's missing?"*
+- Have Claude draft release notes: *"Write release notes for v1.0 based on our commits"*
 
 ---
 
 ## 4. Story & Ticket Creation
 
+> **First Principle:** A good story is small enough to complete in one cycle, clear enough that anyone can understand it, and testable enough that you know when it's done.
+
 ### Story Sizing
 
-- Each story should be **3-5 story points**
+**Methodology: Story Points**
+
+Story points measure *complexity*, not time. Use a simple scale:
+
+| Points | Complexity | Guideline |
+|--------|------------|-----------|
+| 1 | Trivial | Config change, typo fix |
+| 2 | Small | Single function, simple test |
+| 3 | Medium | Feature with tests, touches 2-3 files |
+| 5 | Large | Multiple components, integration needed |
+| 8+ | Too big | Break it down |
+
+**Target:** Each story should be **3-5 points**
+
+**Rules:**
+
 - Stories must be completable with unit tests, integration tests, and UAT in a single cycle
-- Stories should have **concrete acceptance criteria**
+- If a story feels bigger than 5 points, split it
+- If you can't estimate it, it's a spike (research ticket)
 
-### Ticket Requirements
+**Claude Tips:**
 
-- All tickets/stories must include:
-  - Clear acceptance requirements
-  - Unit test criteria
-  - Integration test criteria
-  - UAT test criteria
-- Use **spike tickets** for research/investigation work
+- Ask Claude to estimate: *"How many story points is this? What's the complexity?"*
+- Have Claude split large stories: *"This feels too big. How would you break it down?"*
+
+### Ticket Types
+
+**Story** - Delivers user value
+
+```markdown
+## [STORY] As a [user], I want [feature]
+
+**Description:**
+[What and why]
+
+**Acceptance Criteria:**
+- [ ] Given [context], when [action], then [result]
+- [ ] ...
+
+**Technical Notes:**
+[Implementation hints, if any]
+
+**Test Criteria:**
+- Unit: [what to test]
+- Integration: [what to test]
+- UAT: [how to verify manually]
+```
+
+**Bug** - Fixes broken behavior
+
+```markdown
+## [BUG] [Short description]
+
+**Current Behavior:**
+[What happens now]
+
+**Expected Behavior:**
+[What should happen]
+
+**Steps to Reproduce:**
+1. ...
+
+**Environment:**
+[Version, OS, etc.]
+```
+
+**Spike** - Research/investigation (timeboxed)
+
+```markdown
+## [SPIKE] Investigate [topic]
+
+**Question to Answer:**
+[What are we trying to learn?]
+
+**Timebox:**
+[Max time to spend, e.g., 2 hours]
+
+**Output:**
+- [ ] Document findings in [location]
+- [ ] Recommend next steps
+```
+
+**Chore** - Maintenance, no user-visible change
+
+```markdown
+## [CHORE] [Short description]
+
+**Description:**
+[What needs to be done]
+
+**Why:**
+[Why is this necessary?]
+```
 
 ### Acceptance Criteria
 
-- Spend adequate time defining stories—get acceptance criteria right before development begins
-- Break down requirements into well-defined tickets with testable outcomes
+**Methodology: Given-When-Then (Gherkin-style)**
+
+Write acceptance criteria that are:
+- **Specific** - No ambiguity
+- **Testable** - You can verify pass/fail
+- **Independent** - Each criterion stands alone
+
+**Format:**
+
+```
+Given [precondition/context]
+When [action is taken]
+Then [expected result]
+```
+
+**Examples:**
+
+```
+Given a user is logged in
+When they click the logout button
+Then they are redirected to the login page
+And their session is invalidated
+
+Given an invalid email format
+When the user submits the form
+Then an error message "Invalid email" is displayed
+And the form is not submitted
+```
+
+**Claude Tips:**
+
+- Ask Claude to write acceptance criteria: *"Write Given-When-Then acceptance criteria for this feature"*
+- Have Claude review: *"Are these acceptance criteria complete and testable?"*
+- Generate test cases: *"Convert these acceptance criteria into pytest test cases"*
+
+### Workflow: From Design to Stories
+
+1. **Start with approved design doc**
+2. **Identify deliverables** - What are the shippable increments?
+3. **Create stories** - One per deliverable, 3-5 points each
+4. **Order by dependency** - What must be built first?
+5. **Add acceptance criteria** - Given-When-Then for each
+6. **Review with Claude** - Gaps? Missing tests? Too big?
+
+**Claude Tips:**
+
+- Tell Claude: *"Read the design doc and break it into stories"*
+- Ask for ordering: *"What order should these stories be implemented?"*
+- Validate completeness: *"Do these stories cover all the requirements?"*
+
+### Tracking (Lightweight)
+
+For solo work, a simple markdown file works:
+
+```markdown
+# Backlog
+
+## In Progress
+- [ ] [STORY] Feature X (3 pts) - PR #12
+
+## Ready
+- [ ] [STORY] Feature Y (5 pts)
+- [ ] [BUG] Fix Z (2 pts)
+
+## Done
+- [x] [STORY] Feature A (3 pts) - PR #10
+```
+
+Or use GitHub Issues/Projects if you prefer a UI.
+
+**Claude Tips:**
+
+- Ask Claude to update the backlog: *"Mark story X as done and move Y to in progress"*
+- Request status: *"What's our current backlog status?"*
 
 ---
 
