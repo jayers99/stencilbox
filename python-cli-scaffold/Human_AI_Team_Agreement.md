@@ -6,13 +6,51 @@
 
 ## 1. Discovery & Brainstorming
 
+> **First Principle:** Understand the problem deeply before proposing solutions. Time spent here saves exponentially more time later.
+
 ### Idea Capture
 
-- TODO: How to capture initial ideas before they become requirements?
+**Methodologies:**
+
+- **Brain Dump** - Write everything down without filtering. Quantity over quality at this stage.
+- **Mind Mapping** - Start with the core idea and branch out to related concepts, constraints, and questions.
+- **5 Whys** - Ask "why" repeatedly to get to the root need behind the surface request.
+
+**Process:**
+
+- Capture raw ideas in a `brainstorm.md` file (throwaway, not version controlled)
+- No idea is too small or too "obvious" to write down
+- Include constraints, concerns, and unknowns alongside features
+
+**Claude Tips:**
+
+- Start a conversation with Claude to explore your idea before any code exists
+- Use open-ended prompts: *"I'm thinking about building X. What questions should I be asking myself?"*
+- Ask Claude to play devil's advocate: *"What are the reasons this might fail or be harder than I expect?"*
+- Use **Plan Mode** (`Shift+Tab` to toggle, or `claude --permission-mode plan`) for exploratory conversations where you don't want any files created yet
 
 ### Problem Statement
 
-- TODO: Define the problem being solved
+**Template:**
+
+> **Problem:** [What pain point or need exists?]
+> **Who has it:** [Who experiences this problem?]
+> **Current state:** [How is it handled today, if at all?]
+> **Desired state:** [What does success look like?]
+> **Constraints:** [Time, budget, technical limitations, must-haves]
+
+**Validation Questions:**
+
+- Is this problem worth solving?
+- Am I the right person to solve it?
+- Is now the right time?
+- What's the simplest thing that could possibly work?
+
+**Claude Tips:**
+
+- Share your problem statement with Claude and ask: *"What am I missing? What assumptions am I making?"*
+- Ask Claude to restate the problem in different ways to test your understanding
+- Request a *"pre-mortem"*: *"Imagine this project failed. What went wrong?"*
 
 ---
 
