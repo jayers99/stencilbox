@@ -10,6 +10,7 @@
 
 - [ ] **STORY-X** [Description] (X pts)
   - Requirement: FR-XXX
+  - Depends on: —
   - Branch: `feature/STORY-X-description`
   - PR: —
 
@@ -17,7 +18,7 @@
 
 ## Ready
 
-<!-- Ordered by priority. Top item is next. -->
+<!-- Ordered by priority. Top item is next. Only items with no unmet dependencies. -->
 
 - [ ] **STORY-X** [Description] (X pts) - FR-XXX
 - [ ] **STORY-X** [Description] (X pts) - FR-XXX
@@ -26,9 +27,10 @@
 
 ## Up Next
 
-<!-- Needs refinement or blocked. Not ready to start. -->
+<!-- Needs refinement, blocked, or has unmet dependencies. -->
 
 - [ ] **STORY-X** [Description] (X pts) - FR-XXX - *needs design*
+- [ ] **STORY-X** [Description] (X pts) - FR-XXX - ⛔ depends on STORY-Y
 - [ ] **BUG-X** [Description] (X pts) - *needs reproduction steps*
 
 ---
@@ -57,6 +59,7 @@ When creating a new story:
 ```markdown
 - [ ] **STORY-N** [Short description] (X pts)
   - Requirement: FR-XXX
+  - Depends on: STORY-X (or — if none)
   - Branch: `feature/STORY-N-short-description`
   - PR: —
 
@@ -64,6 +67,12 @@ When creating a new story:
   - [ ] Given X, when Y, then Z
   - [ ] Given A, when B, then C
 ```
+
+**Dependency Rules:**
+
+- Stories with unmet dependencies stay in "Up Next" with ⛔ marker
+- When a dependency completes, move the unblocked story to "Ready"
+- AI should check dependencies before picking up a story
 
 ---
 
@@ -83,5 +92,6 @@ When creating a new story:
 |--------|--------|
 | Start next story | *"Read BACKLOG.md and pick up the next ready story"* |
 | Check status | *"What's currently in progress?"* |
-| Mark done | *"Mark STORY-X as done with PR #Y"* |
+| Mark done | *"Mark STORY-X as done with PR #Y and unblock any dependent stories"* |
 | Add story | *"Add a new story for [feature] linked to FR-XXX"* |
+| Check dependencies | *"What stories are blocked? What do they depend on?"* |
