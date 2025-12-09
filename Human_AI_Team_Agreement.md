@@ -60,19 +60,7 @@
 
 ### Defaults (Pre-Configured)
 
-Don't ask about these - they're standard:
-
-| Setting | Default |
-|---------|---------|
-| Platform | GitHub |
-| License | MIT |
-| Branch protection | None |
-| CI/CD | None |
-| CODEOWNERS | None |
-| .gitignore | Python |
-| Naming | Python conventions (snake_case) |
-| Testing | TDD with pytest (always) |
-| PR Reviews | GitHub Copilot |
+See `~/.claude/CLAUDE.md` for standard defaults. Don't ask about GitHub, MIT license, Python, or TDD—they're assumed.
 
 ### Repository Setup
 
@@ -550,12 +538,7 @@ Requirement (FR-001) → Story (STORY-3) → Branch → PR → Done ✓
 | FR-002 | Data Export | Should Have | 🔲 | — | — |
 ```
 
-**Branch Naming:**
-
-| Type | Format | Example |
-|------|--------|---------|
-| Feature | `feature/STORY-N-description` | `feature/STORY-5-user-login` |
-| Bug fix | `bugfix/BUG-N-description` | `bugfix/BUG-3-null-crash` |
+**Branch Naming:** See `~/.claude/CLAUDE.md` for conventions (`feature/STORY-N-desc`, `bugfix/BUG-N-desc`).
 
 **Claude Tips:**
 
@@ -572,35 +555,11 @@ Requirement (FR-001) → Story (STORY-3) → Branch → PR → Done ✓
 
 ### Human to AI Signals
 
-**Stop / Abort:**
+Standard signals ("Stop", "Pause", "Clarify") are defined in `~/.claude/CLAUDE.md`.
 
-- Type `stop` or `wait` - AI should halt current action
-- Press `Ctrl+C` - Interrupts Claude Code execution
-- Close the terminal - Hard stop (loses context)
-
-**Pause / Hold:**
-
-- *"Pause - I need to think about this"*
-- *"Hold on, let me review what you've done so far"*
-- *"Don't proceed until I say so"*
-
-**Change Direction:**
-
-- *"Actually, let's try a different approach"*
-- *"Scratch that - here's what I really want"*
-- *"This isn't working. Let's step back."*
-
-**Clarify Scope:**
-
-- *"Just do X, nothing else"*
-- *"Only modify file Y"*
-- *"Don't refactor, just fix the bug"*
-
-**Request Confirmation:**
-
-- *"Before you do anything, tell me your plan"*
-- *"What files will this change?"*
-- *"Walk me through what you're about to do"*
+Additional context commands:
+- *"Just do X, nothing else"* — limit scope
+- *"Before you do anything, tell me your plan"* — request confirmation
 
 ### AI to Human Signals
 
@@ -718,24 +677,11 @@ Before writing any code:
 
 ### TDD Workflow
 
-**Methodology: Red-Green-Refactor**
+**Methodology: Red-Green-Refactor** (always—see `~/.claude/CLAUDE.md`)
 
 1. **Red** - Write a failing test first
 2. **Green** - Write minimal code to pass the test
 3. **Refactor** - Clean up while keeping tests green
-
-**Why TDD?**
-
-- Forces you to think about interface before implementation
-- Tests serve as documentation
-- Catches regressions immediately
-- Keeps code focused and minimal
-
-**Claude Tips:**
-
-- Tell Claude: *"Write the test first, then the implementation"*
-- Enforce TDD: *"Don't write implementation until we have a failing test"*
-- Ask for test cases: *"What test cases do we need for this feature?"*
 
 ### Commit Practices
 
@@ -785,34 +731,13 @@ refactor: extract email validation to separate function
 
 ### Branch Strategy
 
-**Trunk-Based Development (Solo):**
-
-For solo work, keep it simple:
-
-- `main` - Always releasable
-- `feature/<name>` - Short-lived feature branches
-- `bugfix/<name>` - Bug fix branches
-
-**Branch Naming:**
-
-```
-feature/add-user-login
-feature/issue-42-export-csv
-bugfix/fix-null-pointer
-bugfix/issue-15-crash-on-empty
-```
+**Trunk-Based Development (Solo):** Branch naming conventions are in `~/.claude/CLAUDE.md`.
 
 **Rules:**
-
 - Branch from `main`
 - Keep branches short-lived (ideally < 1 day)
 - Delete branch after merge
 - Never commit directly to `main`
-
-**Claude Tips:**
-
-- Ask Claude to create branch: *"Create a feature branch for this story"*
-- Check branch status: *"Are we on the right branch? Is it up to date with main?"*
 
 ### Code Style
 

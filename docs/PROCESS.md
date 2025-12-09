@@ -64,9 +64,8 @@ project/
 
 ---
 
-## Claude Tips
+## Tips
 
-- Use **Plan Mode** when drafting documents
-- Ask Claude to review: *"What's missing or unclear in this document?"*
-- Have Claude generate content: *"Draft a design doc for feature X"*
+- Ask: *"What's missing or unclear in this document?"*
+- Request: *"Draft a design doc for feature X"*
 - Request alternatives: *"What other approaches should I consider?"*

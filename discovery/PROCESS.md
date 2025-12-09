@@ -98,8 +98,7 @@ Create a `discovery/` folder in your project directory and save these files ther
 
 ---
 
-## Claude Tips
+## Tips
 
-- Use **Plan Mode** during discovery (`Shift+Tab` or `claude --permission-mode plan`)
 - Keep discovery conversational—don't rush to solutions
 - It's okay to abandon an idea here. That's a success, not a failure.

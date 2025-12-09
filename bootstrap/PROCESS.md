@@ -110,5 +110,4 @@ Bootstrap is complete when:
 
 | File | Purpose |
 |------|---------|
-| `PROCESS.md` | This file - bootstrap process (AI reads first) |
 | `project-types/` | Directory containing scaffolds for each project type |
