@@ -1,6 +1,6 @@
 # Discovery Process
 
-> **AI Instructions:** When the Human starts a new project or idea, read this file first and follow this process. Guide the Human through each step before moving to implementation.
+> **AI Instructions:** The Human has pointed you to this template file from their project directory. Follow this process to guide them through discovery. Create all output files in the Human's **current working directory** (not in this templates folder). For example, if working in `~/code/my-new-app/`, create `~/code/my-new-app/discovery/brainstorm.md`.
 
 ---
 
@@ -85,11 +85,12 @@
 
 ---
 
-## Files in This Directory
+## Files to Create in Your Project
+
+Create a `discovery/` folder in your project directory and save these files there:
 
 | File | Purpose |
 |------|---------|
-| `PROCESS.md` | This file - the discovery process (AI reads first) |
 | `brainstorm.md` | Raw brain dump (created during Step 1) |
 | `problem_statement.md` | Refined problem definition (created during Step 2) |
 | `validation.md` | Risk analysis and validation notes (created during Step 3) |
