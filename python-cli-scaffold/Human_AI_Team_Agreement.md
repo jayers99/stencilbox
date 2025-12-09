@@ -56,15 +56,107 @@
 
 ## 2. Project Bootstrap
 
-- Create repository
-- Define allowed commands
-- Set up initial project structure
+> **First Principle:** A consistent, reproducible project structure reduces cognitive load and lets you focus on the problem, not the plumbing.
+
+### Repository Setup
+
+**Checklist:**
+
+- [ ] Create repository (GitHub/GitLab/Bitbucket)
+- [ ] Initialize with README, .gitignore, LICENSE
+- [ ] Set up branch protection rules on main
+- [ ] Configure CI/CD pipeline (even if minimal)
+- [ ] Add CODEOWNERS if applicable
+
+**Naming Convention:**
+
+- Use lowercase with hyphens: `my-project-name`
+- Be descriptive but concise
+- Include language/framework prefix if you have many repos: `py-my-tool`, `ts-my-app`
+
+**Claude Tips:**
+
+- Ask Claude to generate a `.gitignore` for your tech stack: *"Generate a .gitignore for a Python CLI project using Poetry"*
+- Have Claude create initial CI workflow: *"Create a GitHub Actions workflow for Python that runs pytest and mypy"*
+
+### Project Structure
+
+**Principle:** Follow conventions for your language/framework. Don't invent new patterns unless you have a good reason.
+
+**Process:**
+
+1. AI reads `bootstrap/PROCESS.md`
+2. Human selects project type from `bootstrap/project-types/`
+3. AI reads the selected `SCAFFOLD.md` and generates structure
+
+**Available Project Types:**
+
+| Type | Location | Description |
+|------|----------|-------------|
+| Python CLI | `bootstrap/project-types/python-cli/` | CLI tool with DDD, TDD, pytest |
+| *(add more as needed)* | | |
+
+**Claude Tips:**
+
+- Tell Claude: *"Read bootstrap/PROCESS.md and help me start a new project"*
+- Or be specific: *"Read bootstrap/project-types/python-cli/SCAFFOLD.md and create a project called X"*
+- If unsure about conventions: *"What's the standard project structure for [framework]?"*
 
 ### Environment Setup
 
-- TODO: Local dev environment requirements
-- TODO: Dependencies management
-- TODO: Secrets management
+**Local Development:**
+
+- Document exact steps to get from clone to running in README
+- Use version managers (pyenv, nvm, etc.) to pin language versions
+- Include a `Makefile` or `justfile` for common commands
+
+**Dependencies:**
+
+- Pin dependencies with lock files (poetry.lock, package-lock.json)
+- Separate dev dependencies from production
+- Document why non-obvious dependencies exist
+
+**Secrets Management:**
+
+- **Never commit secrets** - use `.env` files (gitignored) or environment variables
+- Provide a `.env.example` with dummy values
+- Document which secrets are needed and where to get them
+
+**Claude Tips:**
+
+- Ask Claude to create a Makefile: *"Create a Makefile with targets for install, test, lint, and run"*
+- For secrets: *"What environment variables does this project need? Create a .env.example"*
+- Use Claude to write setup instructions: *"Write README setup instructions assuming a fresh Mac with Homebrew"*
+
+### Define Allowed Commands
+
+**Principle:** Limit what the AI can execute to reduce risk of unintended side effects.
+
+**Consider restricting:**
+
+- Destructive git commands (force push, hard reset)
+- Package publishing
+- Production deployments
+- Commands that modify system state outside the project
+
+**Claude Code Configuration:**
+
+You can configure allowed/denied commands in `.claude/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": ["npm test", "npm run build"],
+    "deny": ["rm -rf", "git push --force"]
+  }
+}
+```
+
+**Claude Tips:**
+
+- Start restrictive, loosen as you build trust
+- Review Claude's proposed commands before approving
+- Use Plan Mode when you want analysis without execution
 
 ---
 
