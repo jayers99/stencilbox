@@ -4,6 +4,22 @@
 
 ---
 
+## Defaults (Don't Ask)
+
+These are pre-configured. Don't prompt the Human for these:
+
+- **Platform:** GitHub
+- **License:** MIT
+- **Branch protection:** None
+- **CI/CD:** None
+- **CODEOWNERS:** None
+- **.gitignore:** Python
+- **Naming:** Python conventions (lowercase, underscores)
+- **Testing:** TDD with pytest (always)
+- **PR Reviews:** GitHub Copilot
+
+---
+
 ## Project Details to Gather
 
 Ask the Human for:
@@ -42,12 +58,17 @@ src/<project_name>/
 ```
 <project_name>/
 ├── .python-version          # pyenv version
-├── .gitignore
+├── .gitignore               # Python gitignore
 ├── .claude/
 │   └── settings.json        # AI permissions
+├── LICENSE                  # MIT
 ├── Pipfile                  # Dependencies (pipenv)
 ├── pyproject.toml           # Package config
 ├── README.md
+├── BACKLOG.md               # Story tracking
+├── CHANGELOG.md             # Release history
+├── docs/
+│   └── requirements.md      # Requirements
 ├── src/
 │   └── <project_name>/
 │       ├── __init__.py
@@ -59,6 +80,7 @@ src/<project_name>/
 │       └── infrastructure/
 │           └── __init__.py
 ├── tests/
+│   ├── conftest.py
 │   ├── unit/
 │   │   └── ...
 │   └── integration/
@@ -73,6 +95,14 @@ src/<project_name>/
 
 Apply these principles when generating code:
 
+### Test-Driven Development (TDD) - ALWAYS
+
+1. **Red** - Write a failing test first
+2. **Green** - Write minimal code to pass
+3. **Refactor** - Clean up while tests pass
+
+Never write implementation without a test first.
+
 ### Modern Software Engineering (Dave Farley)
 
 - Optimize for fast, frequent, low-risk changes
@@ -80,12 +110,13 @@ Apply these principles when generating code:
 - Prefer clear, simple, composable design
 - Automate everything repeatable
 
-### Test-Driven Development (TDD)
+### Python Conventions
 
-- Tests come first, then minimal implementation, then refactor
-- Use pytest
-- Keep tests fast and deterministic
-- Mirror src layout in tests/
+- Follow PEP 8
+- Use type hints everywhere
+- Use `snake_case` for functions and variables
+- Use `PascalCase` for classes
+- Use `UPPER_CASE` for constants
 
 ### File-Level Metadata
 
@@ -98,6 +129,7 @@ Module description here.
 """
 
 __version__ = "0.1.0"
+
 
 def file_info() -> dict:
     return {
@@ -130,17 +162,22 @@ def file_info() -> dict:
 When scaffolding, create these files:
 
 1. **README.md** - Project description, setup, usage
-2. **.python-version** - Python version (recommend 3.11+)
-3. **.gitignore** - Python-specific ignores
-4. **Pipfile** - Initial dependencies
-5. **pyproject.toml** - Package configuration
-6. **src/<name>/__init__.py** - Package init
-7. **src/<name>/cli.py** - Entry point with argparse
-8. **src/<name>/domain/__init__.py** - Domain layer
-9. **src/<name>/application/__init__.py** - Application layer
-10. **src/<name>/infrastructure/__init__.py** - Infrastructure layer
-11. **tests/unit/test_version.py** - First test (TDD)
-12. **.claude/settings.json** - AI permissions
+2. **LICENSE** - MIT license
+3. **.python-version** - Python version (recommend 3.11+)
+4. **.gitignore** - Python gitignore (from GitHub template)
+5. **Pipfile** - Initial dependencies
+6. **pyproject.toml** - Package configuration
+7. **BACKLOG.md** - Copy from `docs/templates/backlog.md`
+8. **CHANGELOG.md** - Empty changelog template
+9. **docs/requirements.md** - Copy from `docs/templates/requirements.md`
+10. **src/<name>/__init__.py** - Package init
+11. **src/<name>/cli.py** - Entry point with argparse
+12. **src/<name>/domain/__init__.py** - Domain layer
+13. **src/<name>/application/__init__.py** - Application layer
+14. **src/<name>/infrastructure/__init__.py** - Infrastructure layer
+15. **tests/conftest.py** - Pytest fixtures
+16. **tests/unit/test_version.py** - First test (TDD)
+17. **.claude/settings.json** - AI permissions
 
 ---
 
@@ -159,7 +196,9 @@ Create `.claude/settings.json`:
       "git commit",
       "git status",
       "git diff",
-      "git log"
+      "git log",
+      "gh pr create",
+      "gh pr view"
     ],
     "deny": [
       "rm -rf",
@@ -170,6 +209,61 @@ Create `.claude/settings.json`:
   }
 }
 ```
+
+---
+
+## GitHub Repository Setup
+
+After creating files locally:
+
+```bash
+# Create GitHub repo
+gh repo create <project_name> --private --source=. --remote=origin
+
+# Initial commit and push
+git add -A
+git commit -m "feat: initial project scaffold"
+git push -u origin main
+```
+
+---
+
+## PR Workflow with Copilot
+
+**Creating a PR:**
+
+```bash
+# Push branch
+git push -u origin feature/STORY-X-description
+
+# Create PR (Copilot will auto-review)
+gh pr create --title "STORY-X: Description" --body "Implements FR-XXX
+
+## Changes
+- Change 1
+- Change 2
+
+## Testing
+- [x] Unit tests
+- [x] Integration tests
+
+## UAT
+1. Step 1
+2. Step 2
+"
+```
+
+**After Copilot Reviews:**
+
+```bash
+# View PR and comments
+gh pr view --comments
+
+# Or open in browser
+gh pr view --web
+```
+
+**Claude addresses Copilot comments, then Human approves and merges.**
 
 ---
 
@@ -200,7 +294,8 @@ After scaffold, work in this order:
 
 ## Claude Tips
 
+- **Always TDD** - Write test first, then implementation
 - Use **Plan Mode** to review the scaffold before generating
 - Ask Claude to explain any architectural decisions
-- Request tests before implementation (TDD)
 - Have Claude verify setup instructions work
+- For PRs: *"Create a PR for this story using gh"*

@@ -58,26 +58,48 @@
 
 > **First Principle:** A consistent, reproducible project structure reduces cognitive load and lets you focus on the problem, not the plumbing.
 
+### Defaults (Pre-Configured)
+
+Don't ask about these - they're standard:
+
+| Setting | Default |
+|---------|---------|
+| Platform | GitHub |
+| License | MIT |
+| Branch protection | None |
+| CI/CD | None |
+| CODEOWNERS | None |
+| .gitignore | Python |
+| Naming | Python conventions (snake_case) |
+| Testing | TDD with pytest (always) |
+| PR Reviews | GitHub Copilot |
+
 ### Repository Setup
 
 **Checklist:**
 
-- [ ] Create repository (GitHub/GitLab/Bitbucket)
-- [ ] Initialize with README, .gitignore, LICENSE
-- [ ] Set up branch protection rules on main
-- [ ] Configure CI/CD pipeline (even if minimal)
-- [ ] Add CODEOWNERS if applicable
+- [ ] Create repository on GitHub
+- [ ] Initialize with README, .gitignore (Python), LICENSE (MIT)
+- [ ] Push initial commit
 
 **Naming Convention:**
 
-- Use lowercase with hyphens: `my-project-name`
+- Use lowercase with underscores: `my_project_name` (Python package-safe)
 - Be descriptive but concise
-- Include language/framework prefix if you have many repos: `py-my-tool`, `ts-my-app`
+
+**Commands:**
+
+```bash
+# Create repo and push
+gh repo create <project_name> --private --source=. --remote=origin
+git add -A
+git commit -m "feat: initial project scaffold"
+git push -u origin main
+```
 
 **Claude Tips:**
 
-- Ask Claude to generate a `.gitignore` for your tech stack: *"Generate a .gitignore for a Python CLI project using Poetry"*
-- Have Claude create initial CI workflow: *"Create a GitHub Actions workflow for Python that runs pytest and mypy"*
+- Tell Claude: *"Create a GitHub repo for this project using gh"*
 
 ### Project Structure
 
@@ -1243,12 +1265,31 @@ Human reviews:
 - Tell Claude: *"Review the Copilot comments on this PR and address each one"*
 - Ask for summary: *"Summarize what Copilot found and what you fixed"*
 
+### PR Commands (Quick Reference)
+
+```bash
+# Create PR (Copilot auto-reviews)
+gh pr create --title "STORY-X: Description" --body "## Summary
+- What this PR does
+
+## Testing
+- [x] Tests pass
+
+Closes STORY-X"
+
+# View PR with Copilot comments
+gh pr view --comments
+
+# Check PR status
+gh pr status
+
+# Merge when ready (squash)
+gh pr merge --squash --delete-branch
+```
+
 ### PR Approval
 
-**Who Can Approve:**
-
-- Human (required for all PRs)
-- Configure GitHub branch protection to require approval
+**Who Approves:** Human (no branch protection configured)
 
 **Approval Checklist:**
 
@@ -1281,14 +1322,17 @@ Human reviews:
 
 **Process:**
 
-1. Squash and merge via GitHub UI
-2. Delete the feature branch
-3. Pull latest main locally
+```bash
+# Squash merge and delete branch
+gh pr merge --squash --delete-branch
+
+# Pull latest locally
+git checkout main && git pull
+```
 
 **Claude Tips:**
 
-- Ask Claude: *"Squash and merge this PR"*
-- Or: *"What merge strategy should we use for this PR?"*
+- Ask Claude: *"Merge this PR"*
 
 ### Rollback Plan
 
