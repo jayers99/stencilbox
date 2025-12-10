@@ -16,7 +16,9 @@ These are pre-configured. Don't prompt the Human for these:
 - **.gitignore:** Python
 - **Naming:** Python conventions (lowercase, underscores)
 - **Testing:** TDD with pytest (always)
-- **PR Reviews:** GitHub Copilot
+- **PR Reviews:** GitHub Copilot (Claude polls every 30 seconds for completion)
+- **Branching:** One branch per story (`feature/STORY-N-desc`) or bugfix (`bugfix/BUG-N-desc`)
+- **Releases:** Semver release created after every PR merge
 
 ---
 
@@ -230,9 +232,14 @@ git push -u origin main
 
 ## PR Workflow with Copilot
 
-**Creating a PR:**
+**Creating a Branch and PR:**
 
 ```bash
+# Create branch for story
+git checkout -b feature/STORY-X-description
+
+# ... make changes, commit ...
+
 # Push branch
 git push -u origin feature/STORY-X-description
 
@@ -253,6 +260,27 @@ gh pr create --title "STORY-X: Description" --body "Implements FR-XXX
 "
 ```
 
+**Poll for Copilot Review (every 30 seconds):**
+
+```bash
+# Wait for Copilot review to complete
+PR_NUM=$(gh pr view --json number -q '.number')
+echo "Waiting for Copilot review on PR #$PR_NUM..."
+
+while true; do
+  REVIEWS=$(gh api repos/:owner/:repo/pulls/$PR_NUM/reviews 2>/dev/null)
+  if echo "$REVIEWS" | grep -q "copilot\|github-actions"; then
+    echo "Copilot review found!"
+    break
+  fi
+  echo "Still waiting... (checking again in 30 seconds)"
+  sleep 30
+done
+
+# View the comments
+gh pr view --comments
+```
+
 **After Copilot Reviews:**
 
 ```bash
@@ -264,6 +292,19 @@ gh pr view --web
 ```
 
 **Claude addresses Copilot comments, then Human approves and merges.**
+
+**After Merge - Create Release:**
+
+```bash
+# Pull merged changes
+git checkout main && git pull
+
+# Determine version bump (based on commit types)
+# fix: → PATCH, feat: → MINOR, breaking → MAJOR
+
+# Create release
+gh release create vX.Y.Z --generate-notes
+```
 
 ---
 

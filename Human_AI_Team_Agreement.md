@@ -1147,24 +1147,55 @@ def test_bulk_import_performance():
 **Two-Stage AI Review:**
 
 ```
-1. Claude Code creates PR
+1. Claude creates branch for story (feature/STORY-N-desc)
         ↓
-2. GitHub Copilot reviews (automated)
+2. Claude Code creates PR
         ↓
-3. Claude Code addresses Copilot comments
+3. GitHub Copilot reviews (automated)
         ↓
-4. Human reviews and runs UAT
+4. Claude polls for Copilot review (every 30 seconds)
         ↓
-5. Human approves and merges
+5. Claude Code addresses Copilot comments
+        ↓
+6. Human reviews and runs UAT
+        ↓
+7. Human approves and merges
+        ↓
+8. Claude creates semver release
 ```
 
-**Stage 1: Copilot Review**
+**Stage 1: Branch and PR Creation**
+
+- Every story gets a branch: `feature/STORY-N-description`
+- Every bugfix gets a branch: `bugfix/BUG-N-description`
+- Push branch and create PR immediately
+
+**Stage 2: Copilot Review**
 
 - Enable GitHub Copilot code review on the repo
 - Copilot automatically reviews all PRs
 - Comments appear as review suggestions
 
-**Stage 2: Claude Addresses Comments**
+**Stage 3: Poll for Copilot Review Completion**
+
+Claude should poll GitHub every 30 seconds to check if Copilot has finished reviewing:
+
+```bash
+# Check PR review status
+gh pr checks <pr-number> --watch --interval 30
+
+# Or poll manually
+while true; do
+  gh pr view <pr-number> --json reviews -q '.reviews[] | select(.author.login == "github-actions[bot]" or .author.login == "copilot")'
+  sleep 30
+done
+```
+
+**Claude Tips:**
+- Tell Claude: *"Wait for the Copilot review to complete, polling every 30 seconds"*
+- Or: *"Check if Copilot has finished reviewing PR #X"*
+
+**Stage 4: Claude Addresses Comments**
 
 For each Copilot comment, Claude should:
 
@@ -1177,7 +1208,7 @@ For each Copilot comment, Claude should:
 Leaving as-is.
 ```
 
-**Stage 3: Human Review**
+**Stage 5: Human Review**
 
 Human reviews:
 - Overall approach (does this solve the right problem?)
@@ -1258,6 +1289,45 @@ git checkout main && git pull
 **Claude Tips:**
 
 - Ask Claude: *"Merge this PR"*
+
+### Automatic Release After Merge
+
+**Default:** Every merged PR creates a semver release.
+
+**Process:**
+
+1. After PR is merged, Claude determines version bump:
+   - `fix:` commits → PATCH bump (1.0.0 → 1.0.1)
+   - `feat:` commits → MINOR bump (1.0.0 → 1.1.0)
+   - Breaking changes → MAJOR bump (1.0.0 → 2.0.0)
+
+2. Claude creates the release:
+
+```bash
+# Get current version
+CURRENT=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+
+# Determine new version based on commits since last tag
+# (Claude analyzes commit messages to decide)
+
+# Update version in files (pyproject.toml, __init__.py, etc.)
+# Update CHANGELOG.md - move [Unreleased] to new version
+
+# Commit, tag, and push
+git add -A
+git commit -m "chore: release vX.Y.Z"
+git tag -a vX.Y.Z -m "Release vX.Y.Z"
+git push origin main --tags
+
+# Create GitHub release
+gh release create vX.Y.Z --generate-notes
+```
+
+**Claude Tips:**
+
+- Tell Claude: *"Merge this PR and create a release"*
+- Or after merge: *"Create a release for the changes just merged"*
+- Specify version: *"Create a minor release"* or *"This is a breaking change, create a major release"*
 
 ### Rollback Plan
 

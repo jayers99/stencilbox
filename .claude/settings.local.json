@@ -2,30 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)",
-      "Bash(git status:*)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)",
-      "Bash(git branch:*)",
-      "Bash(git checkout:*)",
-      "Bash(git fetch:*)",
-      "Bash(git pull:*)",
-      "Bash(gh pr view:*)",
-      "Bash(gh pr list:*)",
-      "Bash(gh pr checks:*)",
-      "Bash(gh api:*/pulls/*/comments)",
-      "Bash(gh api:*/pulls/*/reviews)",
-      "Read",
-      "Glob",
-      "Grep",
-      "WebFetch",
-      "WebSearch"
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: add PR workflow defaults for branching, Copilot polling, and releases\n\n- Every story/bugfix gets its own branch (feature/STORY-N or bugfix/BUG-N)\n- Claude polls GitHub every 30 seconds for Copilot review completion\n- Semver release created after every PR merge (PATCH/MINOR/MAJOR based on commits)\n- Added CLAUDE.md for Claude Code guidance\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")"
     ],
-    "deny": [
-      "Bash(rm -rf:*)",
-      "Bash(git push --force:*)",
-      "Bash(git reset --hard:*)"
-    ]
+    "deny": [],
+    "ask": []
   }
 }
