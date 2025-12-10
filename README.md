@@ -58,8 +58,8 @@ Track programming skill development:
 
 | Project | Description |
 |---------|-------------|
-| [bowerbird](projects/bowerbird/) | Photo collection to illustration generator |
-| [pebble](projects/pebble/) | Scrum standup helper |
+| [bowerbird](https://github.com/jayers99/bowerbird) | Photo collection to illustration generator |
+| [pebble](https://github.com/jayers99/pebble) | Scrum standup helper |
 
 ## Shared Resources
 
