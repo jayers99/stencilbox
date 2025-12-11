@@ -164,22 +164,24 @@ def file_info() -> dict:
 When scaffolding, create these files:
 
 1. **README.md** - Project description, setup, usage
-2. **LICENSE** - MIT license
-3. **.python-version** - Python version (recommend 3.11+)
-4. **.gitignore** - Python gitignore (from GitHub template)
-5. **Pipfile** - Initial dependencies
-6. **pyproject.toml** - Package configuration
-7. **BACKLOG.md** - Copy from `docs/templates/backlog.md`
-8. **CHANGELOG.md** - Empty changelog template
-9. **docs/requirements.md** - Copy from `docs/templates/requirements.md`
-10. **src/<name>/__init__.py** - Package init
-11. **src/<name>/cli.py** - Entry point with argparse
-12. **src/<name>/domain/__init__.py** - Domain layer
-13. **src/<name>/application/__init__.py** - Application layer
-14. **src/<name>/infrastructure/__init__.py** - Infrastructure layer
-15. **tests/conftest.py** - Pytest fixtures
-16. **tests/unit/test_version.py** - First test (TDD)
-17. **.claude/settings.json** - AI permissions
+2. **CLAUDE.md** - AI team agreement and project context (from `CLAUDE.md.template`)
+3. **LICENSE** - MIT license
+4. **.python-version** - Python version (recommend 3.11+)
+5. **.gitignore** - Python gitignore (from GitHub template)
+6. **Pipfile** - Initial dependencies
+7. **pyproject.toml** - Package configuration
+8. **BACKLOG.md** - Copy from `docs/templates/backlog.md`
+9. **CHANGELOG.md** - Empty changelog template
+10. **docs/requirements.md** - Copy from `docs/templates/requirements.md`
+11. **src/<name>/__init__.py** - Package init
+12. **src/<name>/cli.py** - Entry point with argparse
+13. **src/<name>/domain/__init__.py** - Domain layer
+14. **src/<name>/application/__init__.py** - Application layer
+15. **src/<name>/infrastructure/__init__.py** - Infrastructure layer
+16. **tests/conftest.py** - Pytest fixtures
+17. **tests/unit/test_version.py** - First test (TDD)
+18. **.claude/settings.json** - AI permissions
+19. **.claude/settings.local.json** - Copy from `~/code/templates/.claude/settings.local.json`
 
 ---
 

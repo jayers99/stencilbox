@@ -4,7 +4,8 @@
       "Bash(git add:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nfeat: add PR workflow defaults for branching, Copilot polling, and releases\n\n- Every story/bugfix gets its own branch (feature/STORY-N or bugfix/BUG-N)\n- Claude polls GitHub every 30 seconds for Copilot review completion\n- Semver release created after every PR merge (PATCH/MINOR/MAJOR based on commits)\n- Added CLAUDE.md for Claude Code guidance\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(git push:*)",
-      "Bash(gh repo rename:*)"
+      "Bash(gh repo rename:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []

@@ -1,60 +1,93 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with this repository.
+
+Last verified: 2025-12-10
 
 ## Repository Purpose
 
-This is a **template repository** for AI-assisted solo development workflows. It contains process guides, document templates, and scaffolds—not code to execute. When users reference files here, they're typically working in a different project directory and using these as external templates.
+**Stencilbox** is a template repository for AI-assisted creation across multiple domains: code, images, writing, and learning. It contains process guides, document templates, prompts, and scaffolds—not code to execute.
 
 ## How This Repository Is Used
 
 Users point Claude Code to files in this repo from their actual project:
-- `"Read discovery/PROCESS.md and help me brainstorm"` - Start a new project idea
-- `"Read bootstrap/PROCESS.md and create a Python CLI project"` - Scaffold a new project
-- `"Read docs/PROCESS.md and help me create requirements"` - Create documentation
 
-**Important:** Output files (brainstorm.md, requirements.md, etc.) should be created in the user's working directory, not in this templates folder.
+```
+"Read ~/code/stencilbox/code/discovery/PROCESS.md and help me brainstorm"
+"Read ~/code/stencilbox/code/bootstrap/PROCESS.md and create a Python CLI project"
+```
 
-## Key Files
+**Important:** Output files (brainstorm.md, requirements.md, etc.) should be created in the user's working directory, NOT in this templates folder.
+
+## Structure
+
+```
+stencilbox/
+├── code/           # Software development templates
+├── images/         # Image generation prompts & workflows
+├── writing/        # Fiction, nonfiction, copywriting
+├── learning/       # Programming skill development
+├── projects/       # Active project-specific stencils
+└── shared/         # Cross-domain personas & workflows
+```
+
+## Key Files by Domain
+
+### Code (`code/`)
 
 | File | Purpose |
 |------|---------|
-| `Human_AI_Team_Agreement.md` | Core workflow document covering all development phases |
-| `discovery/PROCESS.md` | Guide for brainstorming and validating ideas |
-| `bootstrap/PROCESS.md` | Guide for setting up new projects |
-| `docs/PROCESS.md` | Guide for creating requirements and design docs |
-| `bootstrap/project-types/python-cli/SCAFFOLD.md` | Python CLI project template |
+| `code/Coding_Human_AI_Team_Agreement.md` | Core workflow for AI-assisted development |
+| `code/discovery/PROCESS.md` | Brainstorming and idea validation |
+| `code/bootstrap/PROCESS.md` | Project setup guide |
+| `code/bootstrap/project-types/python-cli/SCAFFOLD.md` | Python CLI project template |
+| `code/bootstrap/project-types/python-cli/CLAUDE.md.template` | CLAUDE.md template for new projects |
+| `code/docs/PROCESS.md` | Requirements and design docs |
+| `code/docs/templates/` | Templates for requirements, design, ADR, backlog |
 
-## Workflow Phases
+### Images (`images/`)
 
-1. **Discovery** (`discovery/`) - Brainstorm, problem statement, validation, MVP scoping
-2. **Bootstrap** (`bootstrap/`) - Project setup, repo creation, environment config
-3. **Documentation** (`docs/templates/`) - Requirements, design docs, ADRs, backlog
+| File | Purpose |
+|------|---------|
+| `images/Image_Human_AI_Team_Agreement.md` | Workflow for image generation |
 
-## Development Conventions (for projects created from these templates)
+### Writing (`writing/`)
 
-- **TDD always**: Red-Green-Refactor cycle, never write implementation without tests
+| File | Purpose |
+|------|---------|
+| `writing/Writing_Human_AI_Team_Agreement.md` | Workflow for writing projects |
+
+### Learning (`learning/`)
+
+| File | Purpose |
+|------|---------|
+| `learning/Learning_Human_AI_Team_Agreement.md` | Workflow for skill development |
+
+## Code Development Conventions
+
+For projects created from `code/` templates:
+
+- **TDD always**: Red-Green-Refactor cycle
 - **Trunk-based development**: Short-lived feature branches, squash merge to main
-- **Commit format**: `<type>: <description>` where type is feat/fix/test/refactor/docs/chore
+- **Commit format**: `<type>: <description>` (feat/fix/test/refactor/docs/chore)
 - **Branch naming**: `feature/STORY-N-description` or `bugfix/BUG-N-description`
-- **One story in progress** at a time (WIP limit of 1)
+- **WIP limit**: One story in progress at a time
 
-## Python CLI Projects (from SCAFFOLD.md)
+## PR Process (Code Projects)
 
-Architecture follows DDD with three layers:
-- `domain/` - Pure business logic, no external dependencies
-- `application/` - Use cases and orchestration
-- `infrastructure/` - Cloud SDKs, I/O, configuration
-
-Every Python file should include docstring and `file_info()` function with version metadata.
-
-## PR Process
-
-1. Claude creates branch for story (`feature/STORY-N-desc`) or bugfix (`bugfix/BUG-N-desc`)
-2. Claude Code creates PR with UAT instructions
+1. Claude creates branch (`feature/STORY-N-desc` or `bugfix/BUG-N-desc`)
+2. Claude creates PR with UAT instructions
 3. GitHub Copilot auto-reviews
-4. Claude polls GitHub every 30 seconds until Copilot review completes
+4. Claude polls GitHub every 30 seconds until review completes
 5. Claude addresses Copilot comments
 6. Human runs UAT and approves
 7. Squash merge, delete branch
-8. Claude creates semver release (PATCH for fixes, MINOR for features, MAJOR for breaking changes)
+8. Claude creates semver release
+
+## Working on Stencilbox Itself
+
+When modifying this repository (not using it as a template):
+
+- Update this CLAUDE.md if you change directory structure
+- Verify file paths in tables are accurate
+- Update "Last verified" date after review
