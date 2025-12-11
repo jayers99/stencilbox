@@ -1,0 +1,27 @@
+{
+  "sodnotes": {
+    "prefix": "sodnotes",
+    "body": ["New notes: $1"],
+    "description": "Add new brain dump notes to SOD"
+  },
+  "showsod": {
+    "prefix": "showsod",
+    "body": ["Show SOD"]
+  },
+  "locksod": {
+    "prefix": "locksod",
+    "body": ["Lock the SOD"]
+  },
+  "spike1": {
+    "prefix": "spike1",
+    "body": ["Generate Spike 1"]
+  },
+  "spike2": {
+    "prefix": "spike2",
+    "body": ["Generate Spike 2"]
+  },
+  "sodstories": {
+    "prefix": "sodstories",
+    "body": ["Convert SOD to stories"]
+  }
+}
