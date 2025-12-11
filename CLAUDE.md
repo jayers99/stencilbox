@@ -37,6 +37,7 @@ stencilbox/
 
 | File | Purpose |
 |------|---------|
+| `code/README.md` | Quick start guide for development workflow |
 | `code/Coding_Human_AI_Team_Agreement.md` | Core workflow for AI-assisted development |
 | `code/discovery/PROCESS.md` | Brainstorming and idea validation |
 | `code/bootstrap/PROCESS.md` | Project setup guide |
@@ -83,6 +84,22 @@ For projects created from `code/` templates:
 6. Human runs UAT and approves
 7. Squash merge, delete branch
 8. Claude creates semver release
+
+## Common Tasks
+
+```
+# Start a new project idea
+"Read ~/code/stencilbox/code/discovery/PROCESS.md and help me brainstorm"
+
+# Bootstrap a Python CLI project
+"Read ~/code/stencilbox/code/bootstrap/PROCESS.md and create a Python CLI project"
+
+# Create requirements for a project
+"Read ~/code/stencilbox/code/docs/PROCESS.md and help me create requirements"
+
+# Get back up to speed on the workflow
+"Read ~/code/stencilbox/code/Coding_Human_AI_Team_Agreement.md and help me get started"
+```
 
 ## Working on Stencilbox Itself
 
