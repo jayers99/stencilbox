@@ -192,12 +192,12 @@ Quick reference for all files in the SOD system and how they work together.
 | File | Lines | Purpose |
 |------|-------|---------|
 | `RESOURCES.md` | 185 | Learning resources & best practices ⭐ |
-| `FILE_GUIDE.md` | 195 | Navigation guide |
-| `QUICKSTART.md` | 131 | Getting started guide |
+| `FILE_GUIDE.md` | 216 | Navigation guide |
+| `QUICKSTART.md` | 145 | Getting started guide |
 | `prompts/sod-wizard-seed.md` | 127 | The seed prompt to copy |
 | `prompts/master.md` | 159 | Full unified prompt |
-| `TEST_SCENARIO.md` | 155 | Test case and validation |
-| `README.md` | 278 | Complete documentation |
+| `TEST_SCENARIO.md` | 158 | Test case and validation |
+| `README.md` | 293 | Complete documentation |
 | `SOD.md` | 15 | Template structure |
 | `commands.md` | 26 | Command reference |
 | `samples/sample_sod_*.md` | varies | Example SOD |
