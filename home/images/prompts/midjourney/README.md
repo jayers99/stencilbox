@@ -5,6 +5,7 @@ Prompts, parameters, and guides for Midjourney image generation.
 ## Quick References
 
 - [Transparent Background Guide](transparent-background-quick-ref.md) - Essential for web graphics, stickers, and logos
+- [Example: Die-Cut Sticker](example-sticker-transparent.md) - Complete workflow for sticker design
 
 ## About Midjourney
 

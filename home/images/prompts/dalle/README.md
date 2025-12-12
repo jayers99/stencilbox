@@ -5,6 +5,7 @@ Prompts and guides for ChatGPT's DALL-E image generation.
 ## Quick References
 
 - [Transparent Background Guide](transparent-background-quick-ref.md) - Essential for web graphics, stickers, and logos
+- [Example: Web Banner](example-web-banner-transparent.md) - Complete workflow for transparent web banner
 
 ## About DALL-E
 

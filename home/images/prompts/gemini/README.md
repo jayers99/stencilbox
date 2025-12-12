@@ -5,6 +5,7 @@ Prompts and guides for Google's Gemini/Imagen and Nano Banana Pro image generati
 ## Quick References
 
 - [Transparent Background Guide](transparent-background-quick-ref.md) - Essential for web graphics, stickers, and logos
+- [Example: Logo Design](example-logo-transparent.md) - Complete workflow with verification steps
 
 ## About Gemini / Nano Banana Pro
 
