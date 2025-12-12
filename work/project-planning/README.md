@@ -7,6 +7,16 @@ This system supports DevSecOps, cloud engineering, and enterprise-grade software
 
 ---
 
+## 🚀 Quick Start
+
+**New to this system?** Get started in 3 minutes:
+
+👉 **[Read the Quick Start Guide](./QUICKSTART.md)**
+
+Copy a seed prompt, paste it into your AI assistant, and start building your SOD through conversation.
+
+---
+
 ## Table of Contents
 1. Overview  
 2. Workflow Summary  
@@ -15,7 +25,7 @@ This system supports DevSecOps, cloud engineering, and enterprise-grade software
    - SOD (Brain Dump → Structured Document)  
    - Spike #2  
    - Story Generation  
-4. Master Unified Prompt  
+4. Getting Started
 5. Speed Mode Commands  
 6. VS Code / Copilot Snippets  
 7. Sample SOD  
@@ -151,9 +161,28 @@ The system uses your strict Jira story template and Speed Mode to generate high-
 
 ---
 
-# 4. Master Unified Prompt
+# 4. Getting Started
 
-*(Stored separately for cleanliness. Recommended to save in `/prompts/master.md`.)*
+## Quick Start: Use the SOD Wizard
+
+The easiest way to create your first SOD is to use the **SOD Wizard Seed Prompt**:
+
+1. Open your AI assistant (Claude, ChatGPT, etc.)
+2. Copy the entire seed prompt from `/prompts/sod-wizard-seed.md`
+3. Paste it into your chat
+4. Follow the conversational wizard to build your SOD
+
+The wizard will:
+- Guide you through adding information iteratively
+- Ask clarifying questions to fill gaps
+- Organize your brain dumps into the proper SOD structure
+- Help you lock the SOD when complete
+
+See `/prompts/sod-wizard-seed.md` for the complete seed prompt and usage instructions.
+
+## Advanced: Master Unified Prompt
+
+For experienced users who want the full workflow (Spike #1 → SOD → Spike #2 → Stories), use the **Master Unified Prompt** in `/prompts/master.md`. This provides all four behaviors in a single prompt.
 
 ---
 
