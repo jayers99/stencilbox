@@ -124,7 +124,9 @@ Lock the SOD
 
 ## Test Result
 
-**Status**: ⏳ Pending manual verification
+**Status**: ⏳ Ready for Manual Verification
+
+**Note**: This is a reference test case. Users should manually verify the seed prompt works by following this conversation flow in their AI assistant of choice.
 
 **To Test**:
 1. Copy seed prompt from `sod-wizard-seed.md`
@@ -136,6 +138,7 @@ Lock the SOD
 - Actual AI responses may vary but should follow the general pattern
 - Key is that the conversation is iterative, focused, and builds a complete SOD
 - AI should guide the user without being overly rigid
+- This test case serves as both validation and documentation
 
 ---
 
