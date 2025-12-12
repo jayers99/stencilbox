@@ -7,6 +7,16 @@ This system supports DevSecOps, cloud engineering, and enterprise-grade software
 
 ---
 
+## 🚀 Quick Start
+
+**New to this system?** Get started in 3 minutes:
+
+👉 **[Read the Quick Start Guide](./QUICKSTART.md)**
+
+Copy a seed prompt, paste it into your AI assistant, and start building your SOD through conversation.
+
+---
+
 ## Table of Contents
 1. Overview  
 2. Workflow Summary  
@@ -15,11 +25,12 @@ This system supports DevSecOps, cloud engineering, and enterprise-grade software
    - SOD (Brain Dump → Structured Document)  
    - Spike #2  
    - Story Generation  
-4. Master Unified Prompt  
+4. Getting Started
 5. Speed Mode Commands  
 6. VS Code / Copilot Snippets  
 7. Sample SOD  
-8. License (optional)
+8. Learning Resources
+9. License (optional)
 
 ---
 
@@ -151,9 +162,28 @@ The system uses your strict Jira story template and Speed Mode to generate high-
 
 ---
 
-# 4. Master Unified Prompt
+# 4. Getting Started
 
-*(Stored separately for cleanliness. Recommended to save in `/prompts/master.md`.)*
+## Quick Start: Use the SOD Wizard
+
+The easiest way to create your first SOD is to use the **SOD Wizard Seed Prompt**:
+
+1. Open your AI assistant (Claude, ChatGPT, etc.)
+2. Copy the entire seed prompt from `/prompts/sod-wizard-seed.md`
+3. Paste it into your chat
+4. Follow the conversational wizard to build your SOD
+
+The wizard will:
+- Guide you through adding information iteratively
+- Ask clarifying questions to fill gaps
+- Organize your brain dumps into the proper SOD structure
+- Help you lock the SOD when complete
+
+See `/prompts/sod-wizard-seed.md` for the complete seed prompt and usage instructions.
+
+## Advanced: Master Unified Prompt
+
+For experienced users who want the full workflow (Spike #1 → SOD → Spike #2 → Stories), use the **Master Unified Prompt** in `/prompts/master.md`. This provides all four behaviors in a single prompt.
 
 ---
 
@@ -243,7 +273,21 @@ See `/samples/sample_sod_aws_vault_replication.md` for a complete example.
 
 ---
 
-# 8. License
+# 8. Learning Resources
+
+📚 **[SOD Resources & Best Practices](./RESOURCES.md)**
+
+Expand your knowledge with curated resources from industry experts:
+- **Dave Farley**: Technical design and Continuous Delivery
+- **Martin Fowler & ThoughtWorks**: Architecture and design patterns
+- **Gene Kim & Jez Humble**: DevOps and delivery practices
+- Books, videos, courses, and practical tools
+
+Whether you're new to technical design or looking to deepen your expertise, these resources will help you create better SODs and deliver more successful projects.
+
+---
+
+# 9. License
 Choose a license appropriate for public or internal distribution.
 
 ---
