@@ -42,14 +42,24 @@ Quick reference for all files in the SOD system and how they work together.
 
 ---
 
+## Learning & Best Practices
+
+7. **[RESOURCES.md](./RESOURCES.md)** - SOD learning resources ⭐ NEW
+   - Dave Farley's technical design guidance
+   - ThoughtWorks & Martin Fowler architecture resources
+   - Books, videos, and courses
+   - Practical tools and templates
+
+---
+
 ## Advanced/Full Workflow
 
-7. **[README.md](./README.md)** - Complete system documentation
+8. **[README.md](./README.md)** - Complete system documentation
    - Full workflow (Spike #1 → SOD → Spike #2 → Stories)
    - Behavior model
    - Table of contents for everything
 
-8. **[prompts/master.md](./prompts/master.md)** - Master unified prompt
+9. **[prompts/master.md](./prompts/master.md)** - Master unified prompt
    - All four behaviors in one prompt
    - For experienced users
    - Full lifecycle support
@@ -58,7 +68,7 @@ Quick reference for all files in the SOD system and how they work together.
 
 ## Testing & Validation
 
-9. **[TEST_SCENARIO.md](./TEST_SCENARIO.md)** - Test case for the wizard
+10. **[TEST_SCENARIO.md](./TEST_SCENARIO.md)** - Test case for the wizard
    - Example conversation flow
    - Manual testing instructions
    - Verification checklist
@@ -125,6 +135,15 @@ Quick reference for all files in the SOD system and how they work together.
                          ▼
                  Speed up workflow
 
+       ┌──────────────────────────────────┐
+       │      RESOURCES.md                │
+       │  (Learning & Best Practices)     │
+       └──────────────────────────────────┘
+                         │
+                         ▼
+         Dave Farley, ThoughtWorks,
+         Books, Videos, Courses
+
 
 ┌─────────────────────────────────────────────────────────┐
 │                   ADVANCED PATH                          │
@@ -172,6 +191,8 @@ Quick reference for all files in the SOD system and how they work together.
 
 | File | Lines | Purpose |
 |------|-------|---------|
+| `RESOURCES.md` | 185 | Learning resources & best practices ⭐ |
+| `FILE_GUIDE.md` | 195 | Navigation guide |
 | `QUICKSTART.md` | 131 | Getting started guide |
 | `prompts/sod-wizard-seed.md` | 127 | The seed prompt to copy |
 | `prompts/master.md` | 159 | Full unified prompt |

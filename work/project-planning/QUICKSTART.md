@@ -129,3 +129,17 @@ See [README.md](./README.md) for the full workflow.
 - **Full Workflow**: See `/README.md`
 - **All Commands**: See `/commands.md`
 - **VS Code Snippets**: See `/snippets/sod.code-snippets`
+
+---
+
+## Learn More About SOD Best Practices
+
+📚 **[SOD Resources & Best Practices](./RESOURCES.md)**
+
+Curated learning resources from industry experts:
+- Dave Farley's technical design guidance
+- Martin Fowler & ThoughtWorks architecture resources
+- Books, videos, and courses on solution design
+- Practical tools and templates
+
+New to technical design? Start with Dave Farley's [How to Write Better Technical Design Documents](https://www.youtube.com/watch?v=DAlwnyBjmSw)

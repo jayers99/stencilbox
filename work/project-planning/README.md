@@ -29,7 +29,8 @@ Copy a seed prompt, paste it into your AI assistant, and start building your SOD
 5. Speed Mode Commands  
 6. VS Code / Copilot Snippets  
 7. Sample SOD  
-8. License (optional)
+8. Learning Resources
+9. License (optional)
 
 ---
 
@@ -272,7 +273,21 @@ See `/samples/sample_sod_aws_vault_replication.md` for a complete example.
 
 ---
 
-# 8. License
+# 8. Learning Resources
+
+📚 **[SOD Resources & Best Practices](./RESOURCES.md)**
+
+Expand your knowledge with curated resources from industry experts:
+- **Dave Farley**: Technical design and Continuous Delivery
+- **Martin Fowler & ThoughtWorks**: Architecture and design patterns
+- **Gene Kim & Jez Humble**: DevOps and delivery practices
+- Books, videos, courses, and practical tools
+
+Whether you're new to technical design or looking to deepen your expertise, these resources will help you create better SODs and deliver more successful projects.
+
+---
+
+# 9. License
 Choose a license appropriate for public or internal distribution.
 
 ---
