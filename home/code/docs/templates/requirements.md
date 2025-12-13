@@ -1,123 +1,27 @@
-# Requirements: [Project Name]
+# Requirements (Home)
 
-Version: 0.1.0
-Status: Draft | Review | Approved
-Last Updated: YYYY-MM-DD
+> **Note:** This extends the base template from `shared/code/templates/docs/requirements.md`
+> 
+> See [shared/code/templates/docs/requirements.md](../../../../shared/code/templates/docs/requirements.md) for the full template.
 
----
+## Home-Specific Notes
 
-## Overview
+For personal projects, requirements can be:
+- More fluid and evolving than formal specs
+- Written in your own voice, not corporate language
+- Focused on the MVP and what you'll actually build
+- Created iteratively as you learn more
 
-<!-- 1-2 paragraph summary of what this project does and why -->
+## Creating Requirements with AI
 
----
+1. Start with discovery phase outputs (problem statement, MVP scope)
+2. Ask AI: *"Turn my MVP scope into a requirements doc"*
+3. Review and refine the generated requirements
+4. Link requirements to stories as you create them
 
-## User Stories
+## Tips
 
-<!-- Format: As a [user type], I want [goal] so that [reason] -->
-
-- As a [user], I want [goal] so that [reason]
--
-
----
-
-## Functional Requirements
-
-### FR-001: [Requirement Name]
-
-- **Status:** 🔲 Not Started | 🟡 In Progress | ✅ Complete
-- **Description:**
-- **Priority:** Must Have | Should Have | Nice to Have
-- **Stories:** STORY-X, STORY-Y
-- **PRs:** #X, #Y
-
-**Acceptance Criteria:**
-
-- [ ] Given [context], when [action], then [result]
-- [ ]
-
----
-
-### FR-002: [Requirement Name]
-
-- **Status:** 🔲 Not Started | 🟡 In Progress | ✅ Complete
-- **Description:**
-- **Priority:** Must Have | Should Have | Nice to Have
-- **Stories:** —
-- **PRs:** —
-
-**Acceptance Criteria:**
-
-- [ ] Given [context], when [action], then [result]
-- [ ]
-
----
-
-## Non-Functional Requirements
-
-### Performance
-
--
-
-### Security
-
--
-
-### Usability
-
--
-
-### Reliability
-
--
-
----
-
-## Constraints
-
-<!-- Technical, budget, time, or other limitations -->
-
--
-
----
-
-## Assumptions
-
-<!-- What are we assuming to be true? -->
-
--
-
----
-
-## Out of Scope
-
-<!-- Explicitly list what this version does NOT include -->
-
--
-
----
-
-## Open Questions
-
-<!-- Things still to be decided -->
-
-- [ ]
-
----
-
-## Requirements Summary
-
-<!-- Quick view of all requirements and their status -->
-
-| ID | Name | Priority | Status | Stories | PRs |
-|----|------|----------|--------|---------|-----|
-| FR-001 | [Name] | Must Have | 🔲 | — | — |
-| FR-002 | [Name] | Should Have | 🔲 | — | — |
-
----
-
-## Revision History
-
-| Version | Date | Author | Changes |
-|---------|------|--------|---------|
-| 0.1.0 | YYYY-MM-DD | | Initial draft |
+- Keep the "Must Have" list small—MVP means minimum
+- Don't over-specify—leave room for iteration
+- Update requirements as you learn during implementation
+- Use requirements to stay focused when scope creeps
