@@ -28,7 +28,10 @@ stencilbox/
 │   ├── conventions/            # File naming, commit messages
 │   ├── frameworks/             # Tone guide, interview questions
 │   ├── personas/               # AI personalities
-│   └── assets/                 # Images, banners
+│   ├── assets/                 # Images, banners
+│   └── code/                   # Shared code templates
+│       └── templates/
+│           └── docs/           # Base doc templates (ADR, design, etc.)
 ├── home/                   # BRANCH - personal/creative work
 │   ├── code/                   # Software development templates
 │   ├── images/                 # Image generation prompts
@@ -49,6 +52,7 @@ stencilbox/
 | `shared/conventions/file-naming.md` | Naming standards (kebab-case for docs, snake_case for Python) |
 | `shared/frameworks/tone-guide.md` | Writing tones for AI-seeded content |
 | `shared/frameworks/interview-questions.md` | Techniques for gathering material |
+| `shared/code/templates/docs/` | Base document templates (ADR, design, requirements, backlog) |
 
 ### Home (Personal)
 
@@ -56,7 +60,9 @@ stencilbox/
 |------|---------|
 | `home/code/coding-human-ai-team-agreement.md` | Code workflow (TDD, git, PRs) - extends base |
 | `home/code/discovery/PROCESS.md` | Brainstorming and idea validation |
+| `home/code/discovery/examples/` | Example discovery outputs (reference only) |
 | `home/code/bootstrap/PROCESS.md` | Project setup guide |
+| `home/code/docs/templates/` | Document templates with home-specific guidance |
 | `home/writing/writing-human-ai-team-agreement.md` | Writing workflow - extends base |
 | `home/images/image-human-ai-team-agreement.md` | Image generation workflow - extends base |
 | `home/learning/learning-human-ai-team-agreement.md` | Learning workflow - extends base |
@@ -66,6 +72,10 @@ stencilbox/
 | File | Purpose |
 |------|---------|
 | `work/code/work-environment.md` | JPMC constraints and approved tools |
+| `work/code/discovery/PROCESS.md` | Discovery process with work constraints - extends home version |
+| `work/code/bootstrap/PROCESS.md` | Bootstrap process with compliance requirements - extends home version |
+| `work/code/docs/PROCESS.md` | Documentation process with compliance - extends home version |
+| `work/code/docs/templates/` | Document templates with work-specific requirements |
 | `work/project-planning/QUICKSTART.md` | SOD workflow quick start |
 
 ## Inheritance Model
@@ -81,6 +91,21 @@ shared/agreements/human-ai-team-agreement.md (BASE)
 ```
 
 **Each domain file includes:** "Inherits from: [base]" header. Read the base first, then the domain-specific additions.
+
+### Template Inheritance
+
+Document templates also follow an inheritance model:
+
+```
+shared/code/templates/docs/ (BASE TEMPLATES)
+    ├── adr.md, backlog.md, design.md, requirements.md
+    ├── home/code/docs/templates/ (home-specific guidance)
+    │   └── Reference shared templates with personal project adaptations
+    └── work/code/docs/templates/ (work-specific requirements)
+        └── Reference shared templates with compliance additions
+```
+
+Process guides (PROCESS.md) in work/code reference their home/code counterparts and add work-specific constraints.
 
 ## Code Development Conventions
 

@@ -1,7 +1,7 @@
 # Discovery Process (Work Context)
 
 > **Inherits from:** `home/code/discovery/PROCESS.md`  
-> **Base process:** See [home/code/discovery/PROCESS.md](../../home/code/discovery/PROCESS.md) for the full discovery workflow
+> **Base process:** See [home/code/discovery/PROCESS.md](../../../home/code/discovery/PROCESS.md) for the full discovery workflow
 
 This guide adapts the base discovery process for work constraints and compliance requirements.
 

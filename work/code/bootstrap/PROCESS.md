@@ -1,7 +1,7 @@
 # Bootstrap Process (Work-Safe)
 
 > **Inherits from:** `home/code/bootstrap/PROCESS.md`  
-> **Base process:** See [home/code/bootstrap/PROCESS.md](../../home/code/bootstrap/PROCESS.md) for the full bootstrap workflow
+> **Base process:** See [home/code/bootstrap/PROCESS.md](../../../home/code/bootstrap/PROCESS.md) for the full bootstrap workflow
 
 This guide adapts the base bootstrap process for work-safe project setup with compliance requirements.
 

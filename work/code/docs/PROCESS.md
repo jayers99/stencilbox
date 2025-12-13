@@ -1,7 +1,7 @@
 # Delivery Process (Work-Safe)
 
 > **Inherits from:** `home/code/docs/PROCESS.md`  
-> **Base process:** See [home/code/docs/PROCESS.md](../../home/code/docs/PROCESS.md) for the full documentation workflow
+> **Base process:** See [home/code/docs/PROCESS.md](../../../home/code/docs/PROCESS.md) for the full documentation workflow
 
 This guide adapts the base documentation and delivery process for work context with JPMC policies and compliance requirements.
 
