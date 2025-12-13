@@ -1,4 +1,4 @@
-![Stencilbox banner](shared/StencilBoxBanner.jpg)
+![Stencilbox banner](shared/assets/StencilBoxBanner.jpg)
 
 Templates, prompts, and workflows for AI-assisted creation - code, images, and writing.
 
@@ -6,17 +6,21 @@ Templates, prompts, and workflows for AI-assisted creation - code, images, and w
 
 ```
 stencilbox/
-├── home/           # Personal stencils and artifacts
-│   ├── code/           # Software development templates
-│   ├── images/         # Image generation prompts & workflows
-│   ├── writing/        # Fiction, nonfiction, copywriting
-│   ├── learning/       # Programming skill development
-│   ├── projects/       # Active project-specific stencils
-│   └── shared/         # Cross-domain personas & workflows
-├── work/           # Work-adapted stencils
-│   ├── code/           # Regulated environment engineering docs
-│   └── project-planning/  # SOD workflow and prompts
-└── CHANGELOG.md    # Notable repository changes
+├── shared/             # TRUNK - universal foundations
+│   ├── agreements/         # Base human-AI team agreement
+│   ├── conventions/        # File naming, commit messages
+│   ├── frameworks/         # Tone guide, interview questions
+│   ├── personas/           # AI personalities
+│   └── assets/             # Images, banners
+├── home/               # BRANCH - personal/creative work
+│   ├── code/               # Software development templates
+│   ├── images/             # Image generation prompts
+│   ├── writing/            # Fiction, nonfiction, copywriting
+│   └── learning/           # Programming skill development
+├── work/               # BRANCH - regulated environment
+│   ├── code/               # Work-adapted engineering docs
+│   └── project-planning/   # SOD workflow and prompts
+└── CHANGELOG.md
 ```
 
 ## Quick Start
@@ -79,10 +83,28 @@ Track programming skill development:
 | [pebble](https://github.com/jayers99/pebble) | Scrum standup helper |
 | Work planning | See `work/project-planning/` for SOD and story workflow |
 
-## Shared Resources
+## Shared Resources (Trunk)
 
-- **Personas** (`home/shared/personas/`) - AI personalities for different tasks
-- **Workflows** (`home/shared/workflows/`) - Cross-domain processes
+| Resource | Location | Purpose |
+|----------|----------|---------|
+| Base Agreement | `shared/agreements/human-ai-team-agreement.md` | Universal collaboration principles |
+| Tone Guide | `shared/frameworks/tone-guide.md` | Writing tones for AI-seeded content |
+| Interview Questions | `shared/frameworks/interview-questions.md` | Techniques for gathering material |
+| File Naming | `shared/conventions/file-naming.md` | Naming standards |
+| Personas | `shared/personas/` | AI personalities for different tasks |
+
+## Inheritance Model
+
+Domain-specific agreements extend the base:
+
+```
+shared/agreements/human-ai-team-agreement.md (BASE)
+    ├── home/code/coding-human-ai-team-agreement.md
+    ├── home/writing/writing-human-ai-team-agreement.md
+    ├── home/images/image-human-ai-team-agreement.md
+    ├── home/learning/learning-human-ai-team-agreement.md
+    └── work/code/coding-human-ai-team-agreement.md
+```
 
 ## Philosophy
 

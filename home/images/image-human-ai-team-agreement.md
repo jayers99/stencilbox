@@ -1,5 +1,9 @@
 # Image Generation Human-AI Team Agreement
 
+> **Inherits from:** [shared/agreements/human-ai-team-agreement.md](../../shared/agreements/human-ai-team-agreement.md)
+>
+> Read the base agreement first. This document adds image-generation-specific workflow.
+
 A workflow for creating images with AI assistance across DALL-E, Midjourney, and Gemini/Nano Banana Pro.
 
 ## 1. Collaboration Model

@@ -6,7 +6,9 @@
       "Bash(git push:*)",
       "Bash(gh repo rename:*)",
       "Bash(git commit:*)",
-      "Bash(git mv:*)"
+      "Bash(git mv:*)",
+      "Bash(tree:*)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []
