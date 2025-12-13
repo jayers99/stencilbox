@@ -26,7 +26,7 @@ stencilbox/
 ```
 Read code/discovery/PROCESS.md and help me brainstorm a new project.
 Read code/bootstrap/PROCESS.md and create a Python CLI project.
-Read code/Coding_Human_AI_Team_Agreement.md and help me get started.
+Read code/coding-human-ai-team-agreement.md and help me get started.
 ```
 
 See [home/code/README.md](home/code/README.md) for full development workflow.
@@ -35,7 +35,7 @@ See [home/code/README.md](home/code/README.md) for full development workflow.
 
 Start with:
 - `work/code/README.md` for overview and constraints
-- `work/code/WORK_ENVIRONMENT.md` to document approvals and policies
+- `work/code/work-environment.md` to document approvals and policies
 - `work/project-planning/README.md` for the AI-assisted SOD and story workflow
 
 Quick commands:

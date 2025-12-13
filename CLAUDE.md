@@ -38,7 +38,7 @@ stencilbox/
 | File | Purpose |
 |------|---------|
 | `code/README.md` | Quick start guide for development workflow |
-| `code/Coding_Human_AI_Team_Agreement.md` | Core workflow for AI-assisted development |
+| `code/coding-human-ai-team-agreement.md` | Core workflow for AI-assisted development |
 | `code/discovery/PROCESS.md` | Brainstorming and idea validation |
 | `code/bootstrap/PROCESS.md` | Project setup guide |
 | `code/bootstrap/project-types/python-cli/SCAFFOLD.md` | Python CLI project template |
@@ -50,19 +50,19 @@ stencilbox/
 
 | File | Purpose |
 |------|---------|
-| `images/Image_Human_AI_Team_Agreement.md` | Workflow for image generation |
+| `images/image-human-ai-team-agreement.md` | Workflow for image generation |
 
 ### Writing (`writing/`)
 
 | File | Purpose |
 |------|---------|
-| `writing/Writing_Human_AI_Team_Agreement.md` | Workflow for writing projects |
+| `writing/writing-human-ai-team-agreement.md` | Workflow for writing projects |
 
 ### Learning (`learning/`)
 
 | File | Purpose |
 |------|---------|
-| `learning/Learning_Human_AI_Team_Agreement.md` | Workflow for skill development |
+| `learning/learning-human-ai-team-agreement.md` | Workflow for skill development |
 
 ## Code Development Conventions
 
@@ -98,7 +98,7 @@ For projects created from `code/` templates:
 "Read ~/code/stencilbox/code/docs/PROCESS.md and help me create requirements"
 
 # Get back up to speed on the workflow
-"Read ~/code/stencilbox/code/Coding_Human_AI_Team_Agreement.md and help me get started"
+"Read ~/code/stencilbox/code/coding-human-ai-team-agreement.md and help me get started"
 ```
 
 ## Working on Stencilbox Itself
