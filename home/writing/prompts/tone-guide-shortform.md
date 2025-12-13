@@ -111,6 +111,38 @@ Use these tone definitions to seed AI-assisted writing. Copy the relevant tone b
 
 ---
 
+## Community Voice
+
+**Best for:** Writing *about* someone (tributes, farewell posts from a group, celebrating a person). Third-person perspective honoring someone else.
+
+**Voice characteristics:**
+- Sentence length: Varied. Short punchy observations mixed with flowing appreciation.
+- Vocabulary: Specific and sensory. Name names, cite details only insiders would know.
+- Punctuation: Dashes for asides, periods for weight. Restrained exclamations.
+- Perspective: Third person or collective "we." The community speaking, not the individual.
+
+**Example phrases that fit:**
+- "If you've ever been to [place], you know [person]."
+- "She's the one who..."
+- "You could always count on..."
+- "What you might not know is..."
+- "We're losing someone who..."
+
+**Phrases to avoid:**
+- Generic praise ("amazing person," "will be missed")
+- Speaking *for* the person ("She would want you to know...")
+- Overly formal eulogy tone (save that for funerals)
+- Vague superlatives without specifics
+
+**Key technique:** Ground every compliment in a concrete detail.
+- Weak: "She made everyone feel welcome."
+- Strong: "She remembered your drink, your kid's name, and which team you hated."
+
+**Sample opening:**
+> If you've spent a Friday night at the Flatiron, you know Jessica. She's the one with the red Chucks, the reggae playlist, and the Tic Tac shots she'd share when you least expected it.
+
+---
+
 ## Mixing Tones
 
 Most real writing blends tones. Common combinations:
@@ -120,6 +152,8 @@ Most real writing blends tones. Common combinations:
 | **Warm Professional + Casual Authentic** | Social media where you want heart but not sloppiness |
 | **Nostalgic Storyteller + Gracious Brief** | Open with a memory, then get to the point |
 | **Casual Authentic + Gracious Brief** | Texts to friends—warm but not drawn out |
+| **Community Voice + Nostalgic Storyteller** | Tributes that paint a picture over time |
+| **Community Voice + Casual Authentic** | Group posts that feel like friends talking, not a press release |
 
 ---
 

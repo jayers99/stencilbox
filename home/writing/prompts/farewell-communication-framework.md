@@ -89,10 +89,29 @@ If writing for someone else, ask:
 - How long have you been there?
 - Who needs to hear this and how?
 
-**Emotional:**
+**The Place (Setting & Atmosphere):**
+- Describe the physical space - what makes it distinctive?
+- Any quirky details? (Old fixtures, inside jokes on the walls, signature decor)
+- What does it smell/sound/feel like there?
+- What would a first-time visitor notice?
+
+**Signature Rituals & Details:**
+- Any traditions or routines you're known for?
+- A signature drink, dish, phrase, or gesture?
+- Small touches that are "so you" - things regulars would recognize?
+- Playlists, uniforms, handwriting, decorations you're responsible for?
+
+**Cast of Characters:**
+- Who are the key people in this story? (Coworkers, regulars, mentors)
+- Any relationships worth naming specifically?
+- Inside jokes or nicknames?
+- Who will miss you most, and why?
+
+**Emotional Core:**
 - What will you miss most?
-- Any specific people or moments that stand out?
+- What's the deeper theme here? (Found family, end of an era, bittersweet growth)
 - How do you want to be remembered?
+- If this were a movie scene, what moment would capture it?
 
 **Practical:**
 - Do you want people to come say goodbye?
@@ -102,6 +121,21 @@ If writing for someone else, ask:
 **Optional:**
 - Why are you leaving? (Okay to skip)
 - What's next? (Okay to skip)
+
+## Gathering Community Voices (Optional)
+
+For richer announcements, consider collecting input from others:
+
+**Patron/colleague interview prompts:**
+- "What's your favorite memory of [person]?"
+- "What will you miss most?"
+- "Describe [person] in three words."
+- "What's something [person] does that nobody else does?"
+
+**How to use community input:**
+- Weave quotes into the announcement
+- Create a "comment cascade" - seed responses that prompt others to share
+- Use details from others to surprise the person being honored
 
 ## Example Openings by Tone
 
