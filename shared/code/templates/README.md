@@ -42,3 +42,23 @@ When modifying these base templates:
 3. Avoid domain-specific terminology or constraints
 4. Update both home and work variants if structure changes significantly
 5. Document the change in CHANGELOG.md
+
+### Important: Directory Structure Stability
+
+**The relative paths between templates depend on the current directory structure.**
+
+```
+[domain]/code/docs/templates/[file].md
+└─→ ../../../../shared/code/templates/docs/[file].md
+```
+
+If you move directories:
+- Update all relative path references in template files
+- Test links work: `cd [template-dir] && ls -la ../../../../shared/code/templates/docs/`
+- Update CLAUDE.md structure diagram
+- Update README.md if needed
+
+The relative path approach is intentional:
+- Works in GitHub, local editors, and documentation tools
+- Repository-location independent (no hardcoded paths)
+- Standard practice for template/documentation repositories
