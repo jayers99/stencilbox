@@ -11,7 +11,9 @@ stencilbox/
 │   ├── conventions/        # File naming, commit messages
 │   ├── frameworks/         # Tone guide, interview questions
 │   ├── personas/           # AI personalities
-│   └── assets/             # Images, banners
+│   ├── assets/             # Images, banners
+│   └── code/
+│       └── templates/      # Base document templates
 ├── home/               # BRANCH - personal/creative work
 │   ├── code/               # Software development templates
 │   ├── images/             # Image generation prompts
@@ -88,6 +90,7 @@ Track programming skill development:
 | Resource | Location | Purpose |
 |----------|----------|---------|
 | Base Agreement | `shared/agreements/human-ai-team-agreement.md` | Universal collaboration principles |
+| Code Templates | `shared/code/templates/docs/` | Base document templates (ADR, design, requirements, backlog) |
 | Tone Guide | `shared/frameworks/tone-guide.md` | Writing tones for AI-seeded content |
 | Interview Questions | `shared/frameworks/interview-questions.md` | Techniques for gathering material |
 | File Naming | `shared/conventions/file-naming.md` | Naming standards |
@@ -105,6 +108,16 @@ shared/agreements/human-ai-team-agreement.md (BASE)
     ├── home/learning/learning-human-ai-team-agreement.md
     └── work/code/coding-human-ai-team-agreement.md
 ```
+
+Document templates also follow inheritance:
+
+```
+shared/code/templates/docs/ (BASE TEMPLATES)
+    ├── home/code/docs/templates/ (home-specific guidance)
+    └── work/code/docs/templates/ (work-specific requirements)
+```
+
+Process guides in work/code extend their home/code counterparts with compliance requirements.
 
 ## Philosophy
 
