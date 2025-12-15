@@ -61,10 +61,10 @@
 <!-- Completed stencils -->
 
 - [x] Python CLI project scaffold (`code/bootstrap/project-types/python-cli/`)
-- [x] Coding Human-AI Team Agreement (`code/Coding_Human_AI_Team_Agreement.md`)
-- [x] Image Human-AI Team Agreement (`images/Image_Human_AI_Team_Agreement.md`)
-- [x] Writing Human-AI Team Agreement (`writing/Writing_Human_AI_Team_Agreement.md`)
-- [x] Learning Human-AI Team Agreement (`learning/Learning_Human_AI_Team_Agreement.md`)
+- [x] Coding Human-AI Team Agreement (`code/coding-human-ai-team-agreement.md`)
+- [x] Image Human-AI Team Agreement (`images/image-human-ai-team-agreement.md`)
+- [x] Writing Human-AI Team Agreement (`writing/writing-human-ai-team-agreement.md`)
+- [x] Learning Human-AI Team Agreement (`learning/learning-human-ai-team-agreement.md`)
 - [x] CLAUDE.md template for new projects (`code/bootstrap/project-types/python-cli/CLAUDE.md.template`)
 - [x] Discovery process (`code/discovery/`)
 - [x] Bootstrap process (`code/bootstrap/`)

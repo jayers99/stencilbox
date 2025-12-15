@@ -1,64 +1,20 @@
-# ADR-[NNN]: [Decision Title]
+# Architectural Decision Record (Home)
 
-Date: YYYY-MM-DD
-Status: Proposed | Accepted | Deprecated | Superseded by ADR-XXX
+> **Note:** This extends the base template from `shared/code/templates/docs/adr.md`
+> 
+> See [shared/code/templates/docs/adr.md](../../../../shared/code/templates/docs/adr.md) for the full template.
 
----
+## Home-Specific Notes
 
-## Context
+For personal projects, ADRs can be:
+- More informal and conversational
+- Focused on learning and experimentation
+- Used to document "why I chose X" for future reference
+- Created retroactively when documenting decisions made
 
-<!-- What situation prompted this decision? What problem are we solving? -->
+## Quick Use
 
----
-
-## Decision
-
-<!-- What did we decide? Be specific. -->
-
-We will use [technology/approach] for [purpose].
-
----
-
-## Alternatives Considered
-
-### [Alternative 1]
-
-- **Pros:**
-- **Cons:**
-
-### [Alternative 2]
-
-- **Pros:**
-- **Cons:**
-
----
-
-## Consequences
-
-### Positive
-
--
-
-### Negative
-
--
-
-### Neutral
-
--
-
----
-
-## Related Decisions
-
-<!-- Link to related ADRs -->
-
--
-
----
-
-## Notes
-
-<!-- Any additional context, links, or references -->
-
--
+When AI asks: *"Should I create an ADR for this decision?"*, say yes if:
+- The decision affects architecture or major dependencies
+- You might forget why you chose this approach
+- The decision has interesting trade-offs worth documenting

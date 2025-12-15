@@ -1,5 +1,9 @@
 # Image Generation Human-AI Team Agreement
 
+> **Inherits from:** [shared/agreements/human-ai-team-agreement.md](../../shared/agreements/human-ai-team-agreement.md)
+>
+> Read the base agreement first. This document adds image-generation-specific workflow.
+
 A workflow for creating images with AI assistance across DALL-E, Midjourney, and Gemini/Nano Banana Pro.
 
 ## 1. Collaboration Model
@@ -26,6 +30,7 @@ A workflow for creating images with AI assistance across DALL-E, Midjourney, and
 | Prompt style | Conversational, detailed descriptions |
 | Iteration | "Make it more...", "Keep X but change Y" |
 | Limitations | Less stylistic control than MJ |
+| Transparency | Limited support - use white BG + post-process ([guide](prompts/dalle/transparent-background-quick-ref.md)) |
 
 ### Midjourney
 
@@ -35,6 +40,7 @@ A workflow for creating images with AI assistance across DALL-E, Midjourney, and
 | Prompt style | Keywords, parameters (--ar, --v, --style) |
 | Iteration | Use variations, remix mode, /describe |
 | Parameters | Always specify aspect ratio and version |
+| Transparency | No native support - requires post-processing ([guide](prompts/midjourney/transparent-background-quick-ref.md)) |
 
 Common Midjourney parameters:
 ```
@@ -53,6 +59,7 @@ Common Midjourney parameters:
 | Strengths | Speed, integration with Google ecosystem |
 | Prompt style | Clear, specific descriptions |
 | Iteration | Refine through conversation |
+| Transparency | Limited - verify alpha channel, may need post-process ([guide](prompts/gemini/transparent-background-quick-ref.md)) |
 
 ## 3. Workflow Phases
 
@@ -86,11 +93,13 @@ Common Midjourney parameters:
 - [ ] Documented prompts for reproduction
 - [ ] Style notes for consistency
 - [ ] Learnings captured for future use
+- [ ] Proper transparency if required (see [transparent background guide](prompts/transparent-background.md))
 
 **Red flags to watch for:**
 - Prompt drift (losing original intent)
 - Over-iteration (diminishing returns)
 - Style inconsistency within a project
+- Fake transparency (checkerboard patterns instead of alpha channel)
 
 ## 5. Project Consistency
 
@@ -129,10 +138,17 @@ images/
 ├── prompts/
 │   ├── dalle/          # DALL-E specific prompts
 │   ├── midjourney/     # MJ prompts with parameters
-│   └── gemini/         # Gemini/Nano Banana prompts
+│   ├── gemini/         # Gemini/Nano Banana prompts
+│   └── transparent-background.md  # Comprehensive transparency guide
 ├── styles/             # Style guides and references
 └── workflows/          # Multi-step generation processes
 ```
+
+**Transparency Resources:**
+- [Comprehensive transparency guide](prompts/transparent-background.md) - Full guide for all tools
+- [DALL-E quick reference](prompts/dalle/transparent-background-quick-ref.md)
+- [Midjourney quick reference](prompts/midjourney/transparent-background-quick-ref.md)
+- [Gemini quick reference](prompts/gemini/transparent-background-quick-ref.md)
 
 ## 8. Prompt Documentation Format
 
@@ -164,3 +180,6 @@ images/
 | "Softer" | Less contrast, more diffused |
 | "More breathing room" | More negative space |
 | "Tighter" | Closer crop, less background |
+| "Make it transparent" | Remove background, save with alpha channel |
+| "Isolated" | Subject only, no background elements |
+| "Clean edges" | Sharp alpha channel, no fringing |

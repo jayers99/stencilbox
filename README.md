@@ -6,17 +6,23 @@ Templates, prompts, and workflows for AI-assisted creation - code, images, and w
 
 ```
 stencilbox/
-├── home/           # Personal stencils and artifacts
-│   ├── code/           # Software development templates
-│   ├── images/         # Image generation prompts & workflows
-│   ├── writing/        # Fiction, nonfiction, copywriting
-│   ├── learning/       # Programming skill development
-│   ├── projects/       # Active project-specific stencils
-│   └── shared/         # Cross-domain personas & workflows
-├── work/           # Work-adapted stencils
-│   ├── code/           # Regulated environment engineering docs
-│   └── project-planning/  # SOD workflow and prompts
-└── CHANGELOG.md    # Notable repository changes
+├── shared/             # TRUNK - universal foundations
+│   ├── agreements/         # Base human-AI team agreement
+│   ├── conventions/        # File naming, commit messages
+│   ├── frameworks/         # Tone guide, interview questions
+│   ├── personas/           # AI personalities
+│   ├── assets/             # Images, banners
+│   └── code/
+│       └── templates/      # Base document templates
+├── home/               # BRANCH - personal/creative work
+│   ├── code/               # Software development templates
+│   ├── images/             # Image generation prompts
+│   ├── writing/            # Fiction, nonfiction, copywriting
+│   └── learning/           # Programming skill development
+├── work/               # BRANCH - regulated environment
+│   ├── code/               # Work-adapted engineering docs
+│   └── project-planning/   # SOD workflow and prompts
+└── CHANGELOG.md
 ```
 
 ## Quick Start
@@ -26,7 +32,7 @@ stencilbox/
 ```
 Read code/discovery/PROCESS.md and help me brainstorm a new project.
 Read code/bootstrap/PROCESS.md and create a Python CLI project.
-Read code/Coding_Human_AI_Team_Agreement.md and help me get started.
+Read code/coding-human-ai-team-agreement.md and help me get started.
 ```
 
 See [home/code/README.md](home/code/README.md) for full development workflow.
@@ -35,7 +41,7 @@ See [home/code/README.md](home/code/README.md) for full development workflow.
 
 Start with:
 - `work/code/README.md` for overview and constraints
-- `work/code/WORK_ENVIRONMENT.md` to document approvals and policies
+- `work/code/work-environment.md` to document approvals and policies
 - `work/project-planning/README.md` for the AI-assisted SOD and story workflow
 
 Quick commands:
@@ -79,10 +85,39 @@ Track programming skill development:
 | [pebble](https://github.com/jayers99/pebble) | Scrum standup helper |
 | Work planning | See `work/project-planning/` for SOD and story workflow |
 
-## Shared Resources
+## Shared Resources (Trunk)
 
-- **Personas** (`home/shared/personas/`) - AI personalities for different tasks
-- **Workflows** (`home/shared/workflows/`) - Cross-domain processes
+| Resource | Location | Purpose |
+|----------|----------|---------|
+| Base Agreement | `shared/agreements/human-ai-team-agreement.md` | Universal collaboration principles |
+| Code Templates | `shared/code/templates/docs/` | Base document templates (ADR, design, requirements, backlog) |
+| Tone Guide | `shared/frameworks/tone-guide.md` | Writing tones for AI-seeded content |
+| Interview Questions | `shared/frameworks/interview-questions.md` | Techniques for gathering material |
+| File Naming | `shared/conventions/file-naming.md` | Naming standards |
+| Personas | `shared/personas/` | AI personalities for different tasks |
+
+## Inheritance Model
+
+Domain-specific agreements extend the base:
+
+```
+shared/agreements/human-ai-team-agreement.md (BASE)
+    ├── home/code/coding-human-ai-team-agreement.md
+    ├── home/writing/writing-human-ai-team-agreement.md
+    ├── home/images/image-human-ai-team-agreement.md
+    ├── home/learning/learning-human-ai-team-agreement.md
+    └── work/code/coding-human-ai-team-agreement.md
+```
+
+Document templates also follow inheritance:
+
+```
+shared/code/templates/docs/ (BASE TEMPLATES)
+    ├── home/code/docs/templates/ (home-specific guidance)
+    └── work/code/docs/templates/ (work-specific requirements)
+```
+
+Process guides in work/code extend their home/code counterparts with compliance requirements.
 
 ## Philosophy
 

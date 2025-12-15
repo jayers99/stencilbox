@@ -1,6 +1,10 @@
-# Human-AI Team Agreement
+# Coding Human-AI Team Agreement
 
-> A working agreement between the AI programming assistant and the Human (acting as Product Owner, UAT Tester, and End User).
+> **Inherits from:** [shared/agreements/human-ai-team-agreement.md](../../shared/agreements/human-ai-team-agreement.md)
+>
+> Read the base agreement first. This document adds code-specific workflow: TDD, git, PRs, testing, releases.
+
+A working agreement between the AI programming assistant and the Human (acting as Product Owner, UAT Tester, and End User).
 
 ---
 

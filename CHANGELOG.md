@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2025-12-11
+## v0.2.0 — 2025-12-11
 
 - Restructure repository to introduce work-specific area:
   - Added `work/` top-level directory.
