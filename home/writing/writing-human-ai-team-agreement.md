@@ -1,5 +1,9 @@
 # Writing Human-AI Team Agreement
 
+> **Inherits from:** [shared/agreements/human-ai-team-agreement.md](../../shared/agreements/human-ai-team-agreement.md)
+>
+> Read the base agreement first. This document adds writing-specific workflow.
+
 A workflow for collaborative writing - fiction, nonfiction, and creative projects.
 
 ## 1. Collaboration Model

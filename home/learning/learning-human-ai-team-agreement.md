@@ -1,5 +1,9 @@
 # Learning Human-AI Team Agreement
 
+> **Inherits from:** [shared/agreements/human-ai-team-agreement.md](../../shared/agreements/human-ai-team-agreement.md)
+>
+> Read the base agreement first. This document adds learning-specific workflow.
+
 A workflow for developing programming skills with AI assistance - becoming a stronger developer as AI capabilities grow.
 
 ## 1. The Goal
