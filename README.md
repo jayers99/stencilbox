@@ -1,4 +1,4 @@
-![Stencilbox banner](shared/assets/StencilBoxBanner.jpg)
+![Stencilbox banner](shared/StencilBoxBanner.png)
 
 Templates, prompts, and workflows for AI-assisted creation - code, images, and writing.
 
