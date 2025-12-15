@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with this repository.
 
-Last verified: 2025-12-13
+Last verified: 2025-12-14
 
 ## Repository Purpose
 
@@ -17,7 +17,7 @@ Users point Claude Code to files in this repo from their actual project:
 "Read ~/icloud/stencilbox/home/code/bootstrap/PROCESS.md and create a Python CLI project"
 ```
 
-**Important:** Output files (brainstorm.md, requirements.md, etc.) should be created in the user's working directory, NOT in this templates folder.
+**Critical:** Output files (brainstorm.md, requirements.md, etc.) must be created in the user's **current working directory**, NOT in this templates folder. Always check your working directory before creating files.
 
 ## Structure (Inheritance Model)
 
@@ -77,6 +77,7 @@ stencilbox/
 | `work/code/docs/PROCESS.md` | Documentation process with compliance - extends home version |
 | `work/code/docs/templates/` | Document templates with work-specific requirements |
 | `work/project-planning/QUICKSTART.md` | SOD workflow quick start |
+| `work/code/coding-human-ai-team-agreement.md` | Work-adapted code workflow - extends home version with compliance |
 
 ## Inheritance Model
 
@@ -87,7 +88,8 @@ shared/agreements/human-ai-team-agreement.md (BASE)
     ├── home/code/coding-human-ai-team-agreement.md
     ├── home/writing/writing-human-ai-team-agreement.md
     ├── home/images/image-human-ai-team-agreement.md
-    └── home/learning/learning-human-ai-team-agreement.md
+    ├── home/learning/learning-human-ai-team-agreement.md
+    └── work/code/coding-human-ai-team-agreement.md (extends home/code version)
 ```
 
 **Each domain file includes:** "Inherits from: [base]" header. Read the base first, then the domain-specific additions.
