@@ -315,6 +315,48 @@ For complex CLIs, copy and adapt these patterns from the reference implementatio
 
 **Reference:** `~/code/shuffle-aws-vaults/src/shuffle_aws_vaults/infrastructure/`
 
+### Progress Callback Pattern (Lightweight Alternative)
+
+For simpler CLIs that don't need ETA or throughput tracking, use a callback pattern:
+
+**In the CLI layer** - define how progress is displayed:
+
+```python
+def on_progress(current: int, total: int, item: str, success: bool) -> None:
+    status = "OK" if success else "FAIL"
+    print(f"[{current}/{total}] {status}: {item[:50]}...", file=sys.stderr)
+
+# Pass callback to use case
+result = use_case.execute(data, on_progress=on_progress)
+```
+
+**In the application layer** - call the callback after each item:
+
+```python
+class ProcessItemsUseCase:
+    def execute(
+        self,
+        items: list[Item],
+        on_progress: Callable[[int, int, str, bool], None] | None = None,
+    ) -> ProcessResult:
+        results = []
+        for i, item in enumerate(items):
+            response = self._service.process(item)
+            results.append(response)
+
+            if on_progress:
+                on_progress(i + 1, len(items), item.name, response.success)
+
+        return ProcessResult(results)
+```
+
+**Why this pattern:**
+- Use case doesn't know about terminals or progress bars (separation of concerns)
+- Tests can pass `None` or a mock callback
+- CLI controls presentation (text, progress bar, JSON, silent)
+
+**Reference:** `~/code/claude-tools/src/claude_tools/cli.py` (lines 177-185)
+
 ---
 
 ## Testing Strategy
