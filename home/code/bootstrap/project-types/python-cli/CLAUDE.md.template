@@ -7,27 +7,48 @@ This file provides guidance to Claude Code when working with this codebase.
 **Name:** {{PROJECT_NAME}}
 **Description:** {{PROJECT_DESCRIPTION}}
 **Type:** Python CLI
+**Reference Implementation:** `~/code/shuffle-aws-vaults/`
 
 ## Development Commands
 
 ```bash
-# Install dependencies
+# Install dependencies and package
 pipenv install --dev
+pipenv install -e .
 
-# Run tests
-pipenv run pytest
+# Testing
+pipenv run pytest                    # Run all tests
+pipenv run pytest -v                 # Verbose output
+pipenv run pytest --cov              # With coverage report
+pipenv run pytest tests/unit/        # Unit tests only
 
-# Run tests with coverage
-pipenv run pytest --cov=src --cov-report=html
+# Code quality
+pipenv run black .                   # Format code
+pipenv run black --check .           # Check formatting
+pipenv run ruff check .              # Lint
+pipenv run ruff check --fix .        # Auto-fix lint issues
+pipenv run mypy src/                 # Type check
 
-# Run linter
-pipenv run ruff check .
+# Running the CLI
+pipenv run {{CLI_NAME}} --help
+pipenv run {{CLI_NAME}} --version
+pipenv run {{CLI_NAME}} <command> --dry-run
 
-# Run type checker
-pipenv run mypy src/
+# Or activate the virtualenv first
+pipenv shell
+{{CLI_NAME}} --help
+exit  # to deactivate
+```
 
-# Run the CLI
-pipenv run python -m {{PROJECT_NAME}}
+## Environment Setup
+
+**pipenv venv location:** Set `PIPENV_VENV_IN_PROJECT=1` in your shell profile to keep `.venv/` in the project root.
+
+**Global CLI access (run from any directory):**
+
+```bash
+# Add to ~/.zshrc
+alias {{CLI_NAME}}='PIPENV_PIPFILE=~/code/{{PROJECT_NAME}}/Pipfile pipenv run {{CLI_NAME}}'
 ```
 
 ## Architecture
@@ -36,15 +57,78 @@ This project follows Domain-Driven Design (DDD) with three layers:
 
 ```
 src/{{PROJECT_NAME}}/
-├── cli.py              # Entry point, argparse
+├── cli.py              # Entry point (argparse, subcommands)
 ├── domain/             # Pure business logic, no external dependencies
-├── application/        # Use cases and orchestration
-└── infrastructure/     # Cloud SDKs, I/O, configuration
+├── application/        # Use cases and orchestration (Protocol-based)
+└── infrastructure/     # Cloud SDKs, I/O, config, logging, retry
 ```
 
-- **domain/** - Pure Python, no imports from other layers, fully testable without mocks
-- **application/** - Orchestrates domain objects, depends only on domain
-- **infrastructure/** - External integrations, implements interfaces defined in domain
+**Layer Rules:**
+
+- **domain/** - Pure Python dataclasses, no imports from other layers, fully testable without mocks
+- **application/** - Orchestrates domain objects, depends on Protocol interfaces (not concrete implementations)
+- **infrastructure/** - External integrations, implements Protocol interfaces
+
+**Protocol Pattern Example:**
+
+```python
+# application/list_service.py
+from typing import Protocol
+
+class BackupRepository(Protocol):
+    def list_vaults(self, region: str) -> list[Vault]: ...
+
+class ListService:
+    def __init__(self, repository: BackupRepository) -> None:
+        self._repository = repository
+
+    def execute(self, region: str) -> list[Vault]:
+        return self._repository.list_vaults(region)
+```
+
+**Infrastructure Patterns:**
+
+For retry, logging, signal handling patterns, see reference implementation:
+`~/code/shuffle-aws-vaults/src/shuffle_aws_vaults/infrastructure/`
+
+## Code Conventions
+
+### File Metadata
+
+Every `.py` file must include:
+
+```python
+#!/usr/bin/env python3
+"""Module description here."""
+
+__version__ = "0.1.0"
+__author__ = "John Ayers"
+
+def file_info() -> dict[str, str]:
+    return {
+        "name": "module_name",
+        "description": "...",
+        "version": __version__,
+        "author": __author__,
+        "last_updated": "YYYY-MM-DD",
+    }
+```
+
+### CLI Exit Codes
+
+| Code | Meaning |
+|------|---------|
+| 0 | Success |
+| 1 | Error (validation, API failure, etc.) |
+| 2 | Incomplete (timeout, partial completion) |
+
+### Type Hints
+
+Use modern Python 3.12+ syntax:
+- `list[T]` not `List[T]`
+- `dict[K, V]` not `Dict[K, V]`
+- `X | Y` not `Union[X, Y]`
+- `X | None` not `Optional[X]`
 
 ## AI Team Agreement
 
