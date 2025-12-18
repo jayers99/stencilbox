@@ -29,6 +29,7 @@
 - [ ] Agent Workflow: Bootstrap Project (`.agent/workflows/bootstrap-project.md`)
 - [ ] Agent Workflow: Discovery Process (`.agent/workflows/discovery.md`)
 - [x] CLI Tool: `stencil` for managing templates
+- [ ] GitHub Action: Automatic Copilot PR Review
 
 ### Code (`code/`)
 
