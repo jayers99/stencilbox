@@ -24,6 +24,12 @@
 
 <!-- Stencils and templates to create -->
 
+### Automation
+
+- [ ] Agent Workflow: Bootstrap Project (`.agent/workflows/bootstrap-project.md`)
+- [ ] Agent Workflow: Discovery Process (`.agent/workflows/discovery.md`)
+- [ ] CLI Tool: `stencil` for managing templates
+
 ### Code (`code/`)
 
 - [ ] TypeScript API project scaffold
