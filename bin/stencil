@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+import argparse
+import os
+import shutil
+import sys
+from pathlib import Path
+
+# Configuration
+STENCIL_ROOT = Path(__file__).parent.parent.resolve()
+
+def find_stencils():
+    """Scans the repository for available stencils."""
+    stencils = {}
+    
+    # 1. Project Types (Bootstrap)
+    bootstrap_root = STENCIL_ROOT / "home/code/bootstrap/project-types"
+    if bootstrap_root.exists():
+        for item in bootstrap_root.iterdir():
+            if item.is_dir():
+                stencils[item.name] = {
+                    "type": "project",
+                    "path": item,
+                    "desc": "Project scaffold"
+                }
+
+    # 2. Work Templates (Docs)
+    work_docs = STENCIL_ROOT / "work/project-planning/templates"
+    if work_docs.exists():
+        for item in work_docs.iterdir():
+            if item.is_file() and item.suffix == ".md":
+                stencils[item.stem] = {
+                    "type": "doc",
+                    "path": item,
+                    "desc": "Document template"
+                }
+    
+    return stencils
+
+def list_stencils(args):
+    stencils = find_stencils()
+    print(f"{'NAME':<20} {'TYPE':<10} {'DESCRIPTION'}")
+    print("-" * 50)
+    for name, info in sorted(stencils.items()):
+        print(f"{name:<20} {info['type']:<10} {info['desc']}")
+
+def init_stencil(args):
+    stencils = find_stencils()
+    name = args.name
+    
+    if name not in stencils:
+        print(f"Error: Stencil '{name}' not found.")
+        print("Run 'stencil list' to see available options.")
+        sys.exit(1)
+        
+    source = stencils[name]["path"]
+    dest = Path(args.destination or os.getcwd())
+    
+    if source.is_file():
+        # If dest is a dir, copy into it. If it's a file name, copy as that name.
+        if dest.is_dir():
+            target_file = dest / source.name
+        else:
+            target_file = dest
+            
+        if target_file.exists() and not args.force:
+            print(f"Error: File '{target_file}' already exists. Use --force to overwrite.")
+            sys.exit(1)
+            
+        shutil.copy2(source, target_file)
+        print(f"Created {target_file}")
+        
+    elif source.is_dir():
+        # Project scaffolds are usually copied INTO the current directory or a new subdir
+        target_dir = dest / name if args.create_subdir else dest
+        
+        if target_dir.exists() and any(target_dir.iterdir()) and not args.force:
+             print(f"Error: Directory '{target_dir}' is not empty.")
+             sys.exit(1)
+             
+        shutil.copytree(source, target_dir, dirs_exist_ok=True)
+        print(f"Initialized project in {target_dir}")
+
+def main():
+    parser = argparse.ArgumentParser(description="Stencilbox CLI helper")
+    subparsers = parser.add_subparsers(dest="command", help="Command to run")
+    
+    # List command
+    subparsers.add_parser("list", help="List available stencils")
+    
+    # Init command
+    init_parser = subparsers.add_parser("init", help="Initialize a stencil")
+    init_parser.add_argument("name", help="Name of the stencil to use")
+    init_parser.add_argument("destination", nargs="?", help="Target directory (default: current)")
+    init_parser.add_argument("--force", action="store_true", help="Overwrite existing files")
+    init_parser.add_argument("--no-subdir", dest="create_subdir", action="store_false", help="Don't create a subdirectory for projects")
+    init_parser.set_defaults(create_subdir=True)
+
+    args = parser.parse_args()
+    
+    if args.command == "list":
+        list_stencils(args)
+    elif args.command == "init":
+        init_stencil(args)
+    else:
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()
