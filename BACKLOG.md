@@ -28,7 +28,7 @@
 
 - [ ] Agent Workflow: Bootstrap Project (`.agent/workflows/bootstrap-project.md`)
 - [ ] Agent Workflow: Discovery Process (`.agent/workflows/discovery.md`)
-- [ ] CLI Tool: `stencil` for managing templates
+- [x] CLI Tool: `stencil` for managing templates
 
 ### Code (`code/`)
 
