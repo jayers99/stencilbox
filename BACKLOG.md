@@ -75,3 +75,4 @@
 - [x] Discovery process (`code/discovery/`)
 - [x] Bootstrap process (`code/bootstrap/`)
 - [x] Docs templates (`code/docs/templates/`)
+- [x] Agent Workflow: SOD to Roadmap (`.agent/workflows/sod-to-roadmap.md`)
