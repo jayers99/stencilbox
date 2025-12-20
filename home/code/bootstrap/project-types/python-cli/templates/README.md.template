@@ -1,0 +1,43 @@
+# {{PROJECT_NAME}}
+
+{{DESCRIPTION}}
+
+## Installation
+
+```bash
+# Clone and install
+git clone <repo-url>
+cd {{PROJECT_NAME}}
+pipenv install --dev
+pipenv install -e .
+```
+
+## Usage
+
+```bash
+# Show help
+pipenv run {{CLI_NAME}} --help
+
+# Show version
+pipenv run {{CLI_NAME}} --version
+```
+
+## Development
+
+```bash
+# Run tests
+pipenv run pytest
+
+# Format code
+pipenv run black .
+
+# Lint
+pipenv run ruff check .
+
+# Type check
+pipenv run mypy src/
+```
+
+## License
+
+MIT

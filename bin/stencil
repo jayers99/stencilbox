@@ -1,12 +1,181 @@
 #!/usr/bin/env python3
+"""Stencilbox CLI - scaffold projects from templates."""
+
 import argparse
+import json
 import os
+import re
 import shutil
 import sys
+from datetime import date
 from pathlib import Path
 
 # Configuration
 STENCIL_ROOT = Path(__file__).parent.parent.resolve()
+
+
+# --- Template Processing Functions ---
+
+
+def substitute_variables(content: str, variables: dict[str, str]) -> str:
+    """Replace {{VARIABLE}} placeholders with values from variables dict.
+
+    Args:
+        content: Template content with {{VARIABLE}} placeholders.
+        variables: Dict mapping variable names to their values.
+
+    Returns:
+        Content with all placeholders replaced.
+
+    Raises:
+        KeyError: If a placeholder references an undefined variable.
+    """
+    pattern = re.compile(r"\{\{(\w+)\}\}")
+
+    def replacer(match: re.Match) -> str:
+        var_name = match.group(1)
+        if var_name not in variables:
+            raise KeyError(f"Variable '{var_name}' not defined")
+        return variables[var_name]
+
+    return pattern.sub(replacer, content)
+
+
+def load_manifest(project_path: Path) -> dict | None:
+    """Load manifest.json from a project type directory.
+
+    Args:
+        project_path: Path to the project type directory.
+
+    Returns:
+        Parsed manifest dict, or None if no manifest exists.
+    """
+    manifest_file = project_path / "manifest.json"
+    if not manifest_file.exists():
+        return None
+
+    with open(manifest_file) as f:
+        return json.load(f)
+
+
+def collect_variables(manifest: dict, args: argparse.Namespace) -> dict[str, str]:
+    """Collect template variables from CLI args and interactive prompts.
+
+    Args:
+        manifest: The manifest dict with variable definitions.
+        args: Parsed CLI arguments.
+
+    Returns:
+        Dict of variable names (uppercase) to their values.
+
+    Raises:
+        ValueError: If required variable missing in non-interactive mode.
+    """
+    variables = {}
+    var_defs = manifest.get("variables", {})
+
+    for var_name, var_def in var_defs.items():
+        # Try to get value from CLI args
+        cli_value = getattr(args, var_name, None)
+
+        if cli_value:
+            variables[var_name.upper()] = cli_value
+        elif var_def.get("required", False):
+            if getattr(args, "non_interactive", False):
+                raise ValueError(f"Required variable '{var_name}' not provided")
+            # Interactive prompt
+            prompt = var_def.get("prompt", f"Enter {var_name}")
+            value = input(f"{prompt}: ").strip()
+            if not value:
+                raise ValueError(f"Required variable '{var_name}' cannot be empty")
+            variables[var_name.upper()] = value
+
+    # Add computed variables
+    computed = manifest.get("computed_variables", {})
+    for var_name, compute_type in computed.items():
+        if compute_type == "current_year":
+            variables[var_name] = str(date.today().year)
+        elif compute_type == "current_date":
+            variables[var_name] = date.today().isoformat()
+
+    return variables
+
+
+def is_project_scaffold(stencil_path: Path) -> bool:
+    """Check if a stencil is a project scaffold with templates.
+
+    A project scaffold has either a templates/ directory or manifest.json.
+
+    Args:
+        stencil_path: Path to the stencil.
+
+    Returns:
+        True if this is a project scaffold, False otherwise.
+    """
+    if not stencil_path.is_dir():
+        return False
+
+    has_templates = (stencil_path / "templates").is_dir()
+    has_manifest = (stencil_path / "manifest.json").is_file()
+
+    return has_templates or has_manifest
+
+
+def process_templates(
+    source: Path, dest: Path, variables: dict[str, str]
+) -> None:
+    """Process templates from source directory and write to destination.
+
+    - .template files have variables substituted and extension removed
+    - Static files are copied as-is
+    - Directory paths can contain {{VARIABLE}} placeholders
+    - Destination directory is created if it doesn't exist
+
+    Args:
+        source: Source project type directory (must contain templates/ subdir).
+        dest: Destination directory for the generated project.
+        variables: Dict of variable names to values for substitution.
+    """
+    templates_dir = source / "templates"
+    if not templates_dir.exists():
+        raise ValueError(f"No templates directory found in {source}")
+
+    # Create destination directory
+    dest.mkdir(parents=True, exist_ok=True)
+
+    # Walk through all files in templates/
+    for template_file in templates_dir.rglob("*"):
+        if template_file.is_dir():
+            continue
+
+        # Calculate relative path from templates dir
+        rel_path = template_file.relative_to(templates_dir)
+
+        # Substitute variables in path components
+        path_str = str(rel_path)
+        path_str = substitute_variables(path_str, variables)
+        rel_path = Path(path_str)
+
+        # Determine output path
+        if template_file.suffix == ".template":
+            # Remove .template extension
+            output_path = dest / rel_path.with_suffix("")
+        else:
+            output_path = dest / rel_path
+
+        # Create parent directories
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Process the file
+        if template_file.suffix == ".template":
+            # Read, substitute, and write
+            content = template_file.read_text()
+            content = substitute_variables(content, variables)
+            output_path.write_text(content)
+        else:
+            # Copy static file as-is
+            shutil.copy2(template_file, output_path)
+
 
 def find_stencils():
     """Scans the repository for available stencils."""
@@ -43,42 +212,78 @@ def list_stencils(args):
     for name, info in sorted(stencils.items()):
         print(f"{name:<20} {info['type']:<10} {info['desc']}")
 
-def init_stencil(args):
+def init_stencil(args: argparse.Namespace) -> None:
+    """Initialize a project from a stencil template."""
     stencils = find_stencils()
     name = args.name
-    
+
     if name not in stencils:
         print(f"Error: Stencil '{name}' not found.")
         print("Run 'stencil list' to see available options.")
         sys.exit(1)
-        
+
     source = stencils[name]["path"]
     dest = Path(args.destination or os.getcwd())
-    
+
     if source.is_file():
-        # If dest is a dir, copy into it. If it's a file name, copy as that name.
+        # Simple file copy (document templates)
         if dest.is_dir():
             target_file = dest / source.name
         else:
             target_file = dest
-            
+
         if target_file.exists() and not args.force:
             print(f"Error: File '{target_file}' already exists. Use --force to overwrite.")
             sys.exit(1)
-            
+
         shutil.copy2(source, target_file)
         print(f"Created {target_file}")
-        
+
     elif source.is_dir():
-        # Project scaffolds are usually copied INTO the current directory or a new subdir
-        target_dir = dest / name if args.create_subdir else dest
-        
-        if target_dir.exists() and any(target_dir.iterdir()) and not args.force:
-             print(f"Error: Directory '{target_dir}' is not empty.")
-             sys.exit(1)
-             
-        shutil.copytree(source, target_dir, dirs_exist_ok=True)
-        print(f"Initialized project in {target_dir}")
+        # Check if this is a project scaffold with templates
+        if is_project_scaffold(source):
+            # Use template processing
+            manifest = load_manifest(source)
+            if manifest is None:
+                manifest = {"variables": {}, "computed_variables": {}}
+
+            try:
+                variables = collect_variables(manifest, args)
+            except ValueError as e:
+                print(f"Error: {e}")
+                sys.exit(1)
+
+            # Determine target directory - use project_name if provided
+            if args.create_subdir:
+                project_name = variables.get("PROJECT_NAME", name)
+                target_dir = dest / project_name
+            else:
+                target_dir = dest
+
+            if target_dir.exists() and any(target_dir.iterdir()) and not args.force:
+                print(f"Error: Directory '{target_dir}' is not empty. Use --force to overwrite.")
+                sys.exit(1)
+
+            try:
+                process_templates(source, target_dir, variables)
+                print(f"Created project in {target_dir}")
+                print("\nNext steps:")
+                print(f"  cd {target_dir}")
+                print("  pipenv install --dev && pipenv install -e .")
+                print("  pipenv run pytest")
+            except (KeyError, ValueError) as e:
+                print(f"Error processing templates: {e}")
+                sys.exit(1)
+        else:
+            # Legacy behavior: simple directory copy
+            target_dir = dest / name if args.create_subdir else dest
+
+            if target_dir.exists() and any(target_dir.iterdir()) and not args.force:
+                print(f"Error: Directory '{target_dir}' is not empty.")
+                sys.exit(1)
+
+            shutil.copytree(source, target_dir, dirs_exist_ok=True)
+            print(f"Initialized project in {target_dir}")
 
 def main():
     parser = argparse.ArgumentParser(description="Stencilbox CLI helper")
@@ -94,6 +299,12 @@ def main():
     init_parser.add_argument("--force", action="store_true", help="Overwrite existing files")
     init_parser.add_argument("--no-subdir", dest="create_subdir", action="store_false", help="Don't create a subdirectory for projects")
     init_parser.set_defaults(create_subdir=True)
+
+    # Template variable arguments
+    init_parser.add_argument("--project-name", dest="project_name", help="Project name (snake_case)")
+    init_parser.add_argument("--cli-name", dest="cli_name", help="CLI command name (kebab-case)")
+    init_parser.add_argument("--description", help="Short project description")
+    init_parser.add_argument("--non-interactive", action="store_true", help="Fail if required variables are missing")
 
     args = parser.parse_args()
     

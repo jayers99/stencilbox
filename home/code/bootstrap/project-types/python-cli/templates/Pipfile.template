@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+{{PROJECT_NAME}} = {editable = true, path = "."}
+
+[dev-packages]
+pytest = "~=8.3"
+pytest-cov = "~=6.0"
+pytest-mock = "~=3.14"
+black = "~=24.10"
+ruff = "~=0.7"
+mypy = "~=1.13"
+
+[requires]
+python_version = "3.12"

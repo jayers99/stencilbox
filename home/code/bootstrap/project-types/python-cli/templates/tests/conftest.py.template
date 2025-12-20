@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+"""Shared pytest fixtures for {{PROJECT_NAME}}."""
+
+import pytest
+
+
+# Add shared fixtures here
+# Example:
+# @pytest.fixture
+# def sample_data() -> dict:
+#     """Provide sample test data."""
+#     return {"key": "value"}

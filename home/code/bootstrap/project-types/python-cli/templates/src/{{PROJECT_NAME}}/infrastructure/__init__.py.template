@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+"""Infrastructure layer - external integrations.
+
+This layer contains:
+- Implementations of Protocol interfaces
+- Cloud SDK integrations (boto3, etc.)
+- File I/O and configuration
+- Logging, retry logic, and error handling
+
+Example:
+    from {{PROJECT_NAME}}.application import Repository
+
+    class FileRepository:
+        def get(self, id: str) -> Entity:
+            # File I/O implementation
+            ...
+"""
+
+__author__ = "John Ayers"
+
+
+def file_info() -> dict[str, str]:
+    """Return module metadata."""
+    return {
+        "name": "infrastructure",
+        "description": "Infrastructure layer - external integrations",
+        "version": "0.1.0",
+        "author": __author__,
+        "last_updated": "{{DATE}}",
+    }

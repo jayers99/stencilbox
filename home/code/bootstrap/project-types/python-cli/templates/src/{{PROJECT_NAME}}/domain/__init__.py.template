@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+"""Domain layer - pure business logic.
+
+This layer contains:
+- Domain entities and value objects
+- Business rules and validation
+- No external dependencies (no I/O, no frameworks)
+- Fully testable without mocks
+
+Example:
+    from {{PROJECT_NAME}}.domain.entity import Entity
+"""
+
+__author__ = "John Ayers"
+
+
+def file_info() -> dict[str, str]:
+    """Return module metadata."""
+    return {
+        "name": "domain",
+        "description": "Domain layer - pure business logic",
+        "version": "0.1.0",
+        "author": __author__,
+        "last_updated": "{{DATE}}",
+    }

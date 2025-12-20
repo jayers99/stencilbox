@@ -1,2 +1,13 @@
 prompts.json
 
+# Virtual environments
+.venv/
+
+# Test output
+tmp_test/
+.pytest_cache/
+
+# Python
+__pycache__/
+*.pyc
+
