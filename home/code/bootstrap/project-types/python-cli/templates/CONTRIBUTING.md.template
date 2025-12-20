@@ -1,0 +1,62 @@
+# Contributing to {{PROJECT_NAME}}
+
+## Getting Started
+
+1. Ensure Python 3.12+ and pipenv are installed
+2. Clone the repository
+3. Run `pipenv install --dev && pipenv install -e .`
+4. Read CLAUDE.md for AI-assisted development rules
+
+## Development Workflow
+
+### TDD Always
+
+1. **Red**: Write a failing test first
+2. **Green**: Write minimal code to pass
+3. **Refactor**: Clean up while tests pass
+
+### Branch Strategy
+
+- Create feature branches from `main`
+- Branch naming: `feature/STORY-N-description` or `bugfix/BUG-N-description`
+- Keep branches short-lived (< 1 day ideally)
+
+### Code Quality
+
+Before every commit:
+
+```bash
+pipenv run black .           # Format
+pipenv run ruff check .      # Lint
+pipenv run mypy src/         # Type check
+pipenv run pytest            # Test
+```
+
+### Commit Messages
+
+Format: `<type>: <short description>`
+
+| Type | Use For |
+|------|---------|
+| feat | New feature |
+| fix | Bug fix |
+| test | Adding/updating tests |
+| refactor | Code change without feature/fix |
+| docs | Documentation only |
+| chore | Maintenance |
+
+## Architecture
+
+This project follows Domain-Driven Design (DDD):
+
+- **domain/** - Pure Python logic, no external dependencies, fully testable without mocks
+- **application/** - Orchestrates domain objects, depends on Protocol interfaces
+- **infrastructure/** - External integrations, implements Protocol interfaces
+
+## Pull Request Process
+
+1. Create branch and make changes
+2. Ensure all tests pass and code quality checks pass
+3. Create PR with clear description
+4. Address any review comments
+5. Squash merge when approved

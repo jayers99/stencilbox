@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+"""Application layer - use cases and orchestration.
+
+This layer contains:
+- Use case implementations
+- Protocol definitions for infrastructure
+- Orchestration of domain logic
+- Depends on abstractions, not implementations
+
+Example:
+    from typing import Protocol
+
+    class Repository(Protocol):
+        def get(self, id: str) -> Entity: ...
+
+    class UseCase:
+        def __init__(self, repository: Repository) -> None:
+            self._repository = repository
+
+        def execute(self, id: str) -> Result:
+            entity = self._repository.get(id)
+            return entity.process()
+"""
+
+__author__ = "John Ayers"
+
+
+def file_info() -> dict[str, str]:
+    """Return module metadata."""
+    return {
+        "name": "application",
+        "description": "Application layer - use cases",
+        "version": "0.1.0",
+        "author": __author__,
+        "last_updated": "{{DATE}}",
+    }

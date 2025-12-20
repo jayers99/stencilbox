@@ -1,0 +1,24 @@
+{
+  "name": "python-cli",
+  "description": "Python CLI project with DDD architecture",
+  "variables": {
+    "project_name": {
+      "prompt": "Project name (snake_case, e.g., my_tool)",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "required": true
+    },
+    "cli_name": {
+      "prompt": "CLI command name (kebab-case, e.g., my-tool)",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "required": true
+    },
+    "description": {
+      "prompt": "Short description (1-2 sentences)",
+      "required": true
+    }
+  },
+  "computed_variables": {
+    "YEAR": "current_year",
+    "DATE": "current_date"
+  }
+}
