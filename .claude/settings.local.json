@@ -14,7 +14,8 @@
       "Bash(gh pr view:*)",
       "Bash(git fetch:*)",
       "Bash(git checkout:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(gh issue create:*)"
     ],
     "deny": [],
     "ask": []
