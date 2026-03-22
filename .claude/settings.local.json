@@ -15,7 +15,19 @@
       "Bash(git fetch:*)",
       "Bash(git checkout:*)",
       "Bash(git stash:*)",
-      "Bash(gh issue create:*)"
+      "Bash(gh issue create:*)",
+      "Bash(xargs:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(python3 -m pytest:*)",
+      "Bash(pip3 install:*)",
+      "Bash(python3:*)",
+      "Bash(source:*)",
+      "Bash(pip install:*)",
+      "Bash(cat:*)",
+      "Bash(git branch:*)",
+      "Bash(gh pr create:*)",
+      "Bash(git reset:*)",
+      "Bash(git clean:*)"
     ],
     "deny": [],
     "ask": []

@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pipenv install:*)",
+      "Bash(pipenv run pytest:*)",
+      "Bash(pipenv run python:*)",
+      "Bash(pipenv run black:*)",
+      "Bash(pipenv run ruff:*)",
+      "Bash(pipenv run mypy:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git checkout:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr:*)",
+      "Bash(gh release:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ]
+  }
+}
